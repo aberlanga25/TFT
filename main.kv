@@ -1,0 +1,117 @@
+# app.kv
+#:kivy 1.11.0
+#:import Toolbar kivymd.toolbar.Toolbar
+#:import MDSeparator kivymd.card.MDSeparator
+#:import MDNavigationDrawer kivymd.navigationdrawer.MDNavigationDrawer
+#:import NavigationLayout kivymd.navigationdrawer.NavigationLayout
+#:import NavigationDrawerDivider kivymd.navigationdrawer.NavigationDrawerDivider
+#:import NavigationDrawerToolbar kivymd.navigationdrawer.NavigationDrawerToolbar
+#:import NavigationDrawerSubheader kivymd.navigationdrawer.NavigationDrawerSubheader
+#:import MDCheckbox kivymd.selectioncontrols.MDCheckbox
+#:import MDSwitch kivymd.selectioncontrols.MDSwitch
+#:import MDTextField kivymd.textfields.MDTextField
+#:import MDThemePicker kivymd.theme_picker.MDThemePicker
+#:import labels labels
+
+
+
+NavigationLayout:
+    id: nav_layout
+    MDNavigationDrawer:
+        id: nav_drawer
+        drawer_logo: './images/45.png'
+        NavigationDrawerToolbar:
+            title: 'TeamFight Tactics'
+        NavigationDrawerIconButton:
+            icon: 'checkbox-blank-circle'
+            text: 'Tier List'
+            on_release: app.root.ids.scr_mngr.current = 'TierList'
+        NavigationDrawerIconButton:
+            icon: 'checkbox-blank-circle'
+            text: 'Champions'
+            on_release: app.root.ids.scr_mngr.current = 'Champions'
+        NavigationDrawerIconButton:
+            icon: 'checkbox-blank-circle'
+            text: 'Items'
+            on_release: app.root.ids.scr_mngr.current = 'Items'
+
+
+    BoxLayout:
+        orientation: 'vertical'
+        halign: "center"
+        Toolbar:
+            id: toolbar
+            title: labels.APPLICATION_NAME
+            md_bg_color: app.theme_cls.primary_color
+            background_palette: 'Accent'
+            background_hue: '500'
+            left_action_items: [['menu', lambda x: app.root.toggle_nav_drawer()]]
+            #right_action_items: [['dots-vertical', lambda x: app.root.toggle_nav_drawer()]]
+        ScreenManager:
+            id: scr_mngr
+            Screen:
+                name: 'TierList'
+                GridLayout:
+                        cols: 5
+                        row_default_height: (self.width - self.cols*self.spacing[0])/self.cols
+                        row_force_default: True
+                        size_hint_y: None
+                        height: self.minimum_height
+                        padding: dp(4), dp(4)
+                        spacing: dp(10)
+                        SmartTileWithLabel:
+                            mipmap: True
+                            source: './assets/african-lion-951778_1280.jpg'
+                            text: "African Lion"
+                        SmartTile:
+                            mipmap: True
+                            source: './assets/beautiful-931152_1280.jpg'
+                        SmartTile:
+                            mipmap: True
+                            source: './assets/african-lion-951778_1280.jpg'
+                        SmartTile:
+                            mipmap: True
+                            source: './assets/guitar-1139397_1280.jpg'
+                        SmartTile:
+                            mipmap: True
+                            source: './assets/robin-944887_1280.jpg'
+                        SmartTile:
+                            mipmap: True
+                            source: './assets/kitten-1049129_1280.jpg'
+                        SmartTile:
+                            mipmap: True
+                            source: './assets/light-bulb-1042480_1280.jpg'
+                        SmartTile:
+                            mipmap: True
+                            source: './assets/tangerines-1111529_1280.jpg'
+            Screen:
+                name: 'Champions'
+                MDLabel:
+                    font_style: 'Title'
+                    theme_text_color: 'Primary'
+                    text: "Tier 1"
+                    size_hint_x:None
+                    width: '250dp'
+                    halign: "left"
+                    pos_hint: {'x':0.1, "center_y": 0.9}
+                Image:
+                    source: './images/champs/5.png'
+                    size: dp(48), dp(48)
+                    size_hint:    None, None
+                    pos_hint: {'x':0.1, "center_y": 0.8}
+
+            Screen:
+                name: 'Items'
+                MDLabel:
+                    font_style: 'Title'
+                    theme_text_color: 'Primary'
+                    text: "Tier 1"
+                    size_hint_x:None
+                    width: '250dp'
+                    halign: "left"
+                    pos_hint: {'x':0.1, "center_y": 0.9}
+                Image:
+                    source: './images/champs/5.png'
+                    size: dp(48), dp(48)
+                    size_hint:    None, None
+                    pos_hint: {'x':0.1, "center_y": 0.8}
