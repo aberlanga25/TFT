@@ -1,1074 +1,1103 @@
-# -*- coding: utf-8 -*-
-from kivy.app import App
-from kivy.lang import Builder
+"""
+Copyright (c) 2019 Ivanov Yuri
+
+For suggestions and questions:
+<kivydevelopment@gmail.com>
+
+This file is distributed under the terms of the same license,
+as the Kivy framework.
+
+"""
+
+import os
+import sys
+
+from kivy.factory import Factory
+
+sys.path.append(os.path.abspath(__file__).split("demos")[0])
+
 from kivy.metrics import dp
-from kivy.properties import ObjectProperty
+from kivy.uix.widget import Widget
+from kivy.uix.behaviors import ButtonBehavior
+from kivy.app import App
+from kivy.uix.boxlayout import BoxLayout
+from kivy.clock import Clock
+from kivy.core.window import Window
+from kivy.animation import Animation
+from kivy.lang import Builder
+from kivy.properties import ObjectProperty, StringProperty
 from kivy.uix.image import Image
+from kivy.uix.modalview import ModalView
+from kivy.utils import get_hex_from_color
 
-from kivymd.bottomsheet import MDListBottomSheet, MDGridBottomSheet
+from screens import Screens
+
+from kivymd.utils.cropimage import crop_image
+from kivymd.utils import asynckivy
+from kivymd.fanscreenmanager import MDFanScreen
+from kivymd.popupscreen import MDPopupScreen
 from kivymd.button import MDIconButton
-from kivymd.date_picker import MDDatePicker
-from kivymd.dialog import MDDialog
-from kivymd.label import MDLabel
-from kivymd.list import ILeftBody, ILeftBodyTouch, IRightBodyTouch, BaseListItem
-from kivymd.material_resources import DEVICE_TYPE
-from kivymd.navigationdrawer import MDNavigationDrawer, NavigationDrawerHeaderBase
+from kivymd.list import (
+    ILeftBody,
+    ILeftBodyTouch,
+    IRightBodyTouch,
+    OneLineIconListItem,
+    OneLineListItem,
+)
 from kivymd.selectioncontrols import MDCheckbox
-from kivymd.snackbar import Snackbar
 from kivymd.theming import ThemeManager
-from kivymd.time_picker import MDTimePicker
+from kivymd.ripplebehavior import CircularRippleBehavior
+from kivymd.cards import MDCard
+from kivymd.icon_definitions import md_icons
 
-main_widget_kv = '''
-#:import Toolbar kivymd.toolbar.Toolbar
+
+def toast(text):
+    from kivymd.toast.kivytoast import toast
+
+    toast(text)
+
+
+main_widget_kv = """
+#:import get_hex_from_color kivy.utils.get_hex_from_color
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+#:import images_path kivymd.images_path
+#:import MDToolbar kivymd.toolbar.MDToolbar
 #:import ThemeManager kivymd.theming.ThemeManager
 #:import MDNavigationDrawer kivymd.navigationdrawer.MDNavigationDrawer
 #:import NavigationLayout kivymd.navigationdrawer.NavigationLayout
-#:import NavigationDrawerDivider kivymd.navigationdrawer.NavigationDrawerDivider
 #:import NavigationDrawerToolbar kivymd.navigationdrawer.NavigationDrawerToolbar
 #:import NavigationDrawerSubheader kivymd.navigationdrawer.NavigationDrawerSubheader
-#:import MDCheckbox kivymd.selectioncontrols.MDCheckbox
-#:import MDSwitch kivymd.selectioncontrols.MDSwitch
-#:import MDList kivymd.list.MDList
+#:import MDRoundFlatButton kivymd.button.MDRoundFlatButton
+#:import MDRaisedButton kivymd.button.MDRaisedButton
 #:import OneLineListItem kivymd.list.OneLineListItem
 #:import TwoLineListItem kivymd.list.TwoLineListItem
 #:import ThreeLineListItem kivymd.list.ThreeLineListItem
-#:import OneLineAvatarListItem kivymd.list.OneLineAvatarListItem
-#:import OneLineIconListItem kivymd.list.OneLineIconListItem
-#:import OneLineAvatarIconListItem kivymd.list.OneLineAvatarIconListItem
-#:import MDTextField kivymd.textfields.MDTextField
-#:import MDSpinner kivymd.spinner.MDSpinner
-#:import MDCard kivymd.card.MDCard
-#:import MDSeparator kivymd.card.MDSeparator
-#:import MDDropdownMenu kivymd.menu.MDDropdownMenu
-#:import get_color_from_hex kivy.utils.get_color_from_hex
-#:import colors kivymd.color_definitions.colors
-#:import SmartTile kivymd.grid.SmartTile
-#:import MDSlider kivymd.slider.MDSlider
-#:import MDTabbedPanel kivymd.tabs.MDTabbedPanel
-#:import MDTab kivymd.tabs.MDTab
-#:import MDProgressBar kivymd.progressbar.MDProgressBar
-#:import MDAccordion kivymd.accordion.MDAccordion
-#:import MDAccordionItem kivymd.accordion.MDAccordionItem
-#:import MDAccordionSubItem kivymd.accordion.MDAccordionSubItem
-#:import MDThemePicker kivymd.theme_picker.MDThemePicker
-#:import MDBottomNavigation kivymd.tabs.MDBottomNavigation
-#:import MDBottomNavigationItem kivymd.tabs.MDBottomNavigationItem
+#:import MDLabel kivymd.label.MDLabel
+#:import MDDropdownMenu kivymd.menus.MDDropdownMenu
+
+
+<ContentPopup@BoxLayout>
+    orientation: 'vertical'
+    padding: dp(1)
+    spacing: dp(30)
+
+    Image:
+        id: image
+        source: 'assets/guitar-1139397_1280_crop.png'
+        size_hint: 1, None
+        height: dp(Window.height * 35 // 100)
+        allow_stretch: True
+        keep_ratio: False
+
+    MDRoundFlatButton:
+        text: 'Open Menu'
+        pos_hint: {'center_x': .5}
+        on_release: root.parent.show()
+
+    Widget:
+
+
+<ContentForAnimCard>
+    orientation: 'vertical'
+    padding: dp(10)
+    spacing: dp(10)
+    size_hint_y: None
+    height: self.minimum_height
+
+    BoxLayout:
+        size_hint_y: None
+        height: self.minimum_height
+
+        Widget:
+
+        MDRoundFlatButton:
+            text: "Free call"
+            on_press: root.callback(self.text)
+
+        Widget:
+
+        MDRoundFlatButton:
+            text: "Free message"
+            on_press: root.callback(self.text)
+
+        Widget:
+
+    OneLineIconListItem:
+        text: "Video call"
+        on_press: root.callback(self.text)
+
+        IconLeftSampleWidget:
+            icon: 'camera-front-variant'
+
+    TwoLineIconListItem:
+        text: "Call Viber Out"
+        on_press: root.callback(self.text)
+        secondary_text:
+            "[color=%s]Advantageous rates for calls[/color]" \
+            % get_hex_from_color(app.theme_cls.primary_color)
+        # FIXME: Don't work "secondary_text_color" parameter
+        # secondary_text_color: app.theme_cls.primary_color
+
+        IconLeftSampleWidget:
+            icon: 'phone'
+
+    TwoLineIconListItem:
+        text: "Call over mobile network"
+        on_press: root.callback(self.text)
+        secondary_text:
+            "[color=%s]Operator's tariffs apply[/color]" \
+            % get_hex_from_color(app.theme_cls.primary_color)
+
+        IconLeftSampleWidget:
+            icon: 'remote'
+
+
+<MyNavigationDrawerIconButton@NavigationDrawerIconButton>
+    icon: 'checkbox-blank-circle'
+    on_release:
+        app.show_screen(root.text)
+        app.set_title_toolbar(root.text)
+
+
+<ContentNavigationDrawer@MDNavigationDrawer>
+    drawer_logo: './assets/drawer_logo.png'
+
+    NavigationDrawerSubheader:
+        text: "Menu of Examples:"
+
+    MyNavigationDrawerIconButton:
+        text: "Accordion"
+
+    MyNavigationDrawerIconButton:
+        text: "Bottom App Bar"
+
+    MyNavigationDrawerIconButton:
+        text: "Accordion List"
+
+    MyNavigationDrawerIconButton:
+        text: "Bottom Navigation"
+
+    MyNavigationDrawerIconButton:
+        text: "Bottom Sheets"
+
+    MyNavigationDrawerIconButton:
+        text: "Buttons"
+
+    MyNavigationDrawerIconButton:
+        text: "Cards"
+
+    MyNavigationDrawerIconButton:
+        text: "Chips"
+
+    MyNavigationDrawerIconButton:
+        text: "Dialogs"
+
+    MyNavigationDrawerIconButton:
+        text: "Download File"
+
+    MyNavigationDrawerIconButton:
+        text: "Floating Buttons"
+
+    MyNavigationDrawerIconButton:
+        text: "Files Manager"
+
+    MyNavigationDrawerIconButton:
+        text: "Fan Manager"
+
+    MyNavigationDrawerIconButton:
+        text: "Grid lists"
+
+    MyNavigationDrawerIconButton:
+        text: "Labels"
+
+    MyNavigationDrawerIconButton:
+        text: "Lists"
+
+    NavigationDrawerIconButton:
+        icon: 'checkbox-blank-circle'
+        text: "Manager Swiper"
+        on_release:
+            app.show_manager_swiper()
+            app.set_title_toolbar(self.text)
+
+    MyNavigationDrawerIconButton:
+        text: "MD Icons"
+
+    MyNavigationDrawerIconButton:
+        text: "Menus"
+
+    MyNavigationDrawerIconButton:
+        text: "Pickers"
+
+    MyNavigationDrawerIconButton:
+        text: "Progress & activity"
+
+    MyNavigationDrawerIconButton:
+        text: "Popup Screen"
+
+    MyNavigationDrawerIconButton:
+        text: "Progress bars"
+
+    MyNavigationDrawerIconButton:
+        text: "Refresh Layout"
+
+    MyNavigationDrawerIconButton:
+        text: "Selection controls"
+
+    MyNavigationDrawerIconButton:
+        text: "Sliders"
+
+    MyNavigationDrawerIconButton:
+        text: "Snackbars"
+
+    MyNavigationDrawerIconButton:
+        text: "Tabs"
+
+    MyNavigationDrawerIconButton:
+        text: "Text fields"
+
+    MyNavigationDrawerIconButton:
+        text: "Themes"
+
+    MyNavigationDrawerIconButton:
+        text: "Toolbars"
+
+    MyNavigationDrawerIconButton:
+        text: "User Animation Card"
+
 
 NavigationLayout:
     id: nav_layout
-    MDNavigationDrawer:
+
+    ContentNavigationDrawer:
         id: nav_drawer
-        NavigationDrawerToolbar:
-            title: "Navigation Drawer"
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Accordion"
-            on_release: app.root.ids.scr_mngr.current = 'accordion'
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Bottom Navigation"
-            on_release: app.root.ids.scr_mngr.current = 'bottom_navigation'
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Bottom Sheets"
-            on_release: app.root.ids.scr_mngr.current = 'bottomsheet'
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Buttons"
-            on_release: app.root.ids.scr_mngr.current = 'button'
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Cards"
-            on_release: app.root.ids.scr_mngr.current = 'card'
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Dialogs"
-            on_release: app.root.ids.scr_mngr.current = 'dialog'
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Grid lists"
-            on_release: app.root.ids.scr_mngr.current = 'grid'
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Labels"
-            on_release: app.root.ids.scr_mngr.current = 'labels'
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Lists"
-            on_release: app.root.ids.scr_mngr.current = 'list'
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Menus"
-            on_release: app.root.ids.scr_mngr.current = 'menu'
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Navigation Drawer Widgets"
-            on_release: app.root.ids.scr_mngr.current = 'nav_drawer'
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Pickers"
-            on_release: app.root.ids.scr_mngr.current = 'pickers'
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Progress & activity"
-            on_release: app.root.ids.scr_mngr.current = 'progress'
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Progress bars"
-            on_release: app.root.ids.scr_mngr.current = 'progressbars'
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Selection controls"
-            on_release: app.root.ids.scr_mngr.current = 'selectioncontrols'
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Sliders"
-            on_release: app.root.ids.scr_mngr.current = 'slider'
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Snackbars"
-            on_release: app.root.ids.scr_mngr.current = 'snackbar'
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Tabs"
-            on_release: app.root.ids.scr_mngr.current = 'tabs'
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Text fields"
-            on_release: app.root.ids.scr_mngr.current = 'textfields'
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Themes"
-            on_release: app.root.ids.scr_mngr.current = 'theming'
-        NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Toolbars"
-            on_release: app.root.ids.scr_mngr.current = 'toolbar'
-    BoxLayout:
-        orientation: 'vertical'
-        Toolbar:
-            id: toolbar
-            title: 'KivyMD Kitchen Sink'
-            md_bg_color: app.theme_cls.primary_color
-            background_palette: 'Primary'
-            background_hue: '500'
-            left_action_items: [['menu', lambda x: app.root.toggle_nav_drawer()]]
-            right_action_items: [['dots-vertical', lambda x: app.root.toggle_nav_drawer()]]
-        ScreenManager:
-            id: scr_mngr
-            Screen:
-                name: 'bottomsheet'
-                MDRaisedButton:
-                    text: "Open list bottom sheet"
-                    opposite_colors: True
-                    size_hint: None, None
-                    size: 4 * dp(48), dp(48)
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.6}
-                    on_release: app.show_example_bottom_sheet()
-                MDRaisedButton:
-                    text: "Open grid bottom sheet"
-                    opposite_colors: True
-                    size_hint: None, None
-                    size: 4 * dp(48), dp(48)
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.3}
-                    on_release: app.show_example_grid_bottom_sheet()
-            Screen:
-                name: 'button'
-                BoxLayout:
-                    size_hint: None, None
-                    size: '88dp', '48dp'
-                    padding: '12dp'
-                    pos_hint: {'center_x': 0.75, 'center_y': 0.8}
-                    MDLabel:
-                        font_style: 'Body1'
-                        theme_text_color: 'Primary'
-                        text: "Disable buttons"
-                        size_hint_x:None
-                        width: '56dp'
-                    MDCheckbox:
-                        id: disable_the_buttons
-                MDIconButton:
-                    icon: 'sd'
-                    pos_hint: {'center_x': 0.25, 'center_y': 0.8}
-                    disabled: disable_the_buttons.active
-                MDFlatButton:
-                    text: 'MDFlatButton'
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.6}
-                    disabled: disable_the_buttons.active
-                MDRaisedButton:
-                    text: "MDRaisedButton"
-                    elevation_normal: 2
-                    opposite_colors: True
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.4}
-                    disabled: disable_the_buttons.active
-                MDFloatingActionButton:
-                    id:                    float_act_btn
-                    icon:                'plus'
-                    opposite_colors:    True
-                    elevation_normal:    8
-                    pos_hint:            {'center_x': 0.5, 'center_y': 0.2}
-                    disabled: disable_the_buttons.active
-            Screen:
-                name: 'card'
-                MDCard:
-                    size_hint: None, None
-                    size:     dp(320), dp(180)
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.7}
-                MDCard:
-                    size_hint: None, None
-                    size: dp(320), dp(180)
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.3}
-                    BoxLayout:
-                        orientation:'vertical'
-                        padding: dp(8)
-                        MDLabel:
-                            text: 'Title'
-                            theme_text_color: 'Secondary'
-                            font_style:"Title"
-                            size_hint_y: None
-                            height: dp(36)
-                        MDSeparator:
-                            height: dp(1)
-                        MDLabel:
-                            text: 'Body'
-                            theme_text_color: 'Primary'
-            Screen:
-                name: 'slider'
-                BoxLayout:
-                    MDSlider:
-                        id: hslider
-                        min:0
-                        max:100
-                        value: 10
-                    MDSlider:
-                        id: vslider
-                        orientation:'vertical'
-                        min:0
-                        max:100
-                        value: hslider.value
-            Screen:
-                name: 'dialog'
-                MDRaisedButton:
-                    text: "Open dialog"
-                    size_hint: None, None
-                    size: 3 * dp(48), dp(48)
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.7}
-                    opposite_colors: True
-                    on_release: app.show_example_dialog()
-                MDRaisedButton:
-                    text: "Open lengthy dialog"
-                    size_hint: None, None
-                    size: 3 * dp(48), dp(48)
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.3}
-                    opposite_colors: True
-                    on_release: app.show_example_long_dialog()
-            Screen:
-                name: 'grid'
-                ScrollView:
-                    do_scroll_x: False
-                    GridLayout:
-                        cols: 3
-                        row_default_height: (self.width - self.cols*self.spacing[0])/self.cols
-                        row_force_default: True
-                        size_hint_y: None
-                        height: self.minimum_height
-                        padding: dp(4), dp(4)
-                        spacing: dp(4)
-                        SmartTileWithLabel:
-                            mipmap: True
-                            source: './assets/african-lion-951778_1280.jpg'
-                            text: "African Lion"
-                        SmartTile:
-                            mipmap: True
-                            source: './assets/beautiful-931152_1280.jpg'
-                        SmartTile:
-                            mipmap: True
-                            source: './assets/african-lion-951778_1280.jpg'
-                        SmartTile:
-                            mipmap: True
-                            source: './assets/guitar-1139397_1280.jpg'
-                        SmartTile:
-                            mipmap: True
-                            source: './assets/robin-944887_1280.jpg'
-                        SmartTile:
-                            mipmap: True
-                            source: './assets/kitten-1049129_1280.jpg'
-                        SmartTile:
-                            mipmap: True
-                            source: './assets/light-bulb-1042480_1280.jpg'
-                        SmartTile:
-                            mipmap: True
-                            source: './assets/tangerines-1111529_1280.jpg'
-            Screen:
-                name: 'labels'
-                ScrollView:
-                    do_scroll_x: False
-                    BoxLayout:
-                        orientation: 'vertical'
-                        size_hint_y: None
-                        height: dp(1000)
-                        BoxLayout:
-                            MDLabel:
-                                font_style: 'Body1'
-                                theme_text_color: 'Primary'
-                                text: "Body1 label"
-                                halign: 'center'
-                            MDLabel:
-                                font_style: 'Body2'
-                                theme_text_color: 'Primary'
-                                text: "Body2 label"
-                                halign: 'center'
-                        BoxLayout:
-                            MDLabel:
-                                font_style: 'Caption'
-                                theme_text_color: 'Primary'
-                                text: "Caption label"
-                                halign: 'center'
-                            MDLabel:
-                                font_style: 'Subhead'
-                                theme_text_color: 'Primary'
-                                text: "Subhead label"
-                                halign: 'center'
-                        BoxLayout:
-                            MDLabel:
-                                font_style: 'Title'
-                                theme_text_color: 'Primary'
-                                text: "Title label"
-                                halign: 'center'
-                            MDLabel:
-                                font_style: 'Headline'
-                                theme_text_color: 'Primary'
-                                text: "Headline label"
-                                halign: 'center'
-                        MDLabel:
-                            font_style: 'Display1'
-                            theme_text_color: 'Primary'
-                            text: "Display1 label"
-                            halign: 'center'
-                            size_hint_y: None
-                            height: self.texture_size[1] + dp(4)
-                        MDLabel:
-                            font_style: 'Display2'
-                            theme_text_color: 'Primary'
-                            text: "Display2 label"
-                            halign: 'center'
-                            size_hint_y: None
-                            height: self.texture_size[1] + dp(4)
-                        MDLabel:
-                            font_style: 'Display3'
-                            theme_text_color: 'Primary'
-                            text: "Display3 label"
-                            halign: 'center'
-                            size_hint_y: None
-                            height: self.texture_size[1] + dp(4)
-                        MDLabel:
-                            font_style: 'Display4'
-                            theme_text_color: 'Primary'
-                            text: "Display4 label"
-                            halign: 'center'
-                            size_hint_y: None
-                            height: self.texture_size[1] + dp(4)
-                        BoxLayout:
-                            MDLabel:
-                                font_style: 'Body1'
-                                theme_text_color: 'Primary'
-                                text: "Primary color"
-                                halign: 'center'
-                            MDLabel:
-                                font_style: 'Body1'
-                                theme_text_color: 'Secondary'
-                                text: "Secondary color"
-                                halign: 'center'
-                        BoxLayout:
-                            MDLabel:
-                                font_style: 'Body1'
-                                theme_text_color: 'Hint'
-                                text: "Hint color"
-                                halign: 'center'
-                            MDLabel:
-                                font_style: 'Body1'
-                                theme_text_color: 'Error'
-                                text: "Error color"
-                                halign: 'center'
-                        MDLabel:
-                            font_style: 'Body1'
-                            theme_text_color: 'Custom'
-                            text_color: (0,1,0,.4)
-                            text: "Custom"
-                            halign: 'center'
 
-            Screen:
-                name: 'list'
-                ScrollView:
-                    do_scroll_x: False
-                    MDList:
-                        id: ml
-                        OneLineListItem:
-                            text: "One-line item"
-                        TwoLineListItem:
-                            text: "Two-line item"
-                            secondary_text: "Secondary text here"
-                        ThreeLineListItem:
-                            text: "Three-line item"
-                            secondary_text: "This is a multi-line label where you can fit more text than usual"
-                        OneLineAvatarListItem:
-                            text: "Single-line item with avatar"
-                            AvatarSampleWidget:
-                                source: './assets/avatar.png'
-                        TwoLineAvatarListItem:
-                            type: "two-line"
-                            text: "Two-line item..."
-                            secondary_text: "with avatar"
-                            AvatarSampleWidget:
-                                source: './assets/avatar.png'
-                        ThreeLineAvatarListItem:
-                            type: "three-line"
-                            text: "Three-line item..."
-                            secondary_text: "...with avatar..." + '\\n' + "and third line!"
-                            AvatarSampleWidget:
-                                source: './assets/avatar.png'
-                        OneLineIconListItem:
-                            text: "Single-line item with left icon"
-                            IconLeftSampleWidget:
-                                id: li_icon_1
-                                icon: 'star-circle'
-                        TwoLineIconListItem:
-                            text: "Two-line item..."
-                            secondary_text: "...with left icon"
-                            IconLeftSampleWidget:
-                                id: li_icon_2
-                                icon: 'comment-text'
-                        ThreeLineIconListItem:
-                            text: "Three-line item..."
-                            secondary_text: "...with left icon..." + '\\n' + "and third line!"
-                            IconLeftSampleWidget:
-                                id: li_icon_3
-                                icon: 'sd'
-                        OneLineAvatarIconListItem:
-                            text: "Single-line + avatar&icon"
-                            AvatarSampleWidget:
-                                source: './assets/avatar.png'
-                            IconRightSampleWidget:
-                        TwoLineAvatarIconListItem:
-                            text: "Two-line item..."
-                            secondary_text: "...with avatar&icon"
-                            AvatarSampleWidget:
-                                source: './assets/avatar.png'
-                            IconRightSampleWidget:
-                        ThreeLineAvatarIconListItem:
-                            text: "Three-line item..."
-                            secondary_text: "...with avatar&icon..." + '\\n' + "and third line!"
-                            AvatarSampleWidget:
-                                source: './assets/avatar.png'
-                            IconRightSampleWidget:
-            Screen:
-                name: 'menu'
-                MDRaisedButton:
-                    size_hint: None, None
-                    size: 3 * dp(48), dp(48)
-                    text: 'Open menu'
-                    opposite_colors: True
-                    pos_hint: {'center_x': 0.1, 'center_y': 0.9}
-                    on_release: MDDropdownMenu(items=app.menu_items, width_mult=4).open(self)
-                MDRaisedButton:
-                    size_hint: None, None
-                    size: 3 * dp(48), dp(48)
-                    text: 'Open menu'
-                    opposite_colors: True
-                    pos_hint: {'center_x': 0.1, 'center_y': 0.1}
-                    on_release: MDDropdownMenu(items=app.menu_items, width_mult=4).open(self)
-                MDRaisedButton:
-                    size_hint: None, None
-                    size: 3 * dp(48), dp(48)
-                    text: 'Open menu'
-                    opposite_colors: True
-                    pos_hint: {'center_x': 0.9, 'center_y': 0.1}
-                    on_release: MDDropdownMenu(items=app.menu_items, width_mult=4).open(self)
-                MDRaisedButton:
-                    size_hint: None, None
-                    size: 3 * dp(48), dp(48)
-                    text: 'Open menu'
-                    opposite_colors: True
-                    pos_hint: {'center_x': 0.9, 'center_y': 0.9}
-                    on_release: MDDropdownMenu(items=app.menu_items, width_mult=4).open(self)
-                MDRaisedButton:
-                    size_hint: None, None
-                    size: 3 * dp(48), dp(48)
-                    text: 'Open menu'
-                    opposite_colors: True
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                    on_release: MDDropdownMenu(items=app.menu_items, width_mult=4).open(self)
+    FloatLayout:
+        id: float_box
 
-            Screen:
-                name: 'progress'
-                MDCheckbox:
-                    id:            chkbox
-                    size_hint:    None, None
-                    size:        dp(48), dp(48)
-                    pos_hint:    {'center_x': 0.5, 'center_y': 0.4}
-                    active: True
-                MDSpinner:
-                    id: spinner
-                    size_hint: None, None
-                    size: dp(46), dp(46)
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                    active: True if chkbox.active else False
-            Screen:
-                name: 'progressbars'
-                BoxLayout:
-                    orientation:'vertical'
-                    padding: '8dp'
+        BoxLayout:
+            id: box_for_manager
+            orientation: 'vertical'
 
-                    MDSlider:
-                        id:progress_slider
-                        min:0
-                        max:100
-                        value: 40
+            MDToolbar:
+                id: toolbar
+                title: app.title
+                md_bg_color: app.theme_cls.primary_color
+                background_palette: 'Primary'
+                background_hue: '500'
+                elevation: 10
+                left_action_items:
+                    [['menu', lambda x: app.root.toggle_nav_drawer()]]
+                right_action_items:
+                    [['dots-vertical', lambda x: app.root.toggle_nav_drawer()]]
 
-                    MDProgressBar:
-                        value: progress_slider.value
-                    MDProgressBar:
-                        reversed: True
-                        value: progress_slider.value
+            ScreenManager:
+                id: scr_mngr
+                transition: NoTransition()
 
-                    BoxLayout:
-                        MDProgressBar:
-                            orientation:"vertical"
-                            reversed: True
-                            value: progress_slider.value
+                Screen:
+                    name: 'previous'
 
-                        MDProgressBar:
-                            orientation:"vertical"
-                            value: progress_slider.value
+                    FloatLayout:
 
-            Screen:
-                name: 'selectioncontrols'
-                MDCheckbox:
-                    id:            grp_chkbox_1
-                    group:        'test'
-                    size_hint:    None, None
-                    size:        dp(48), dp(48)
-                    pos_hint:    {'center_x': 0.25, 'center_y': 0.5}
-                MDCheckbox:
-                    id:            grp_chkbox_2
-                    group:        'test'
-                    size_hint:    None, None
-                    size:        dp(48), dp(48)
-                    pos_hint:    {'center_x': 0.5, 'center_y': 0.5}
-                MDSwitch:
-                    size_hint:    None, None
-                    size:        dp(36), dp(48)
-                    pos_hint:    {'center_x': 0.75, 'center_y': 0.5}
-                    _active:        False
+                        Image:
+                            source: f'{images_path}kivy-logo-white-512.png'
+                            opacity: .3
 
-            Screen:
-                name: 'snackbar'
-                MDRaisedButton:
-                    text: "Create simple snackbar"
-                    size_hint: None, None
-                    size: 4 * dp(48), dp(48)
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.75}
-                    opposite_colors: True
-                    on_release: app.show_example_snackbar('simple')
-                MDRaisedButton:
-                    text: "Create snackbar with button"
-                    size_hint: None, None
-                    size: 4 * dp(48), dp(48)
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                    opposite_colors: True
-                    on_release: app.show_example_snackbar('button')
-                MDRaisedButton:
-                    text: "Create snackbar with a lot of text"
-                    size_hint: None, None
-                    size: 5 * dp(48), dp(48)
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.25}
-                    opposite_colors: True
-                    on_release: app.show_example_snackbar('verylong')
-
-            Screen:
-                name: 'textfields'
-                ScrollView:
-                    BoxLayout:
-                        orientation: 'vertical'
-                        size_hint_y: None
-                        height: self.minimum_height
-                        padding: dp(48)
-                        spacing: 10
-                        MDTextField:
-                            hint_text: "No helper text"
-                        MDTextField:
-                            hint_text: "Helper text on focus"
-                            helper_text: "This will disappear when you click off"
-                            helper_text_mode: "on_focus"
-                        MDTextField:
-                            hint_text: "Persistent helper text"
-                            helper_text: "Text is always here"
-                            helper_text_mode: "persistent"
-                        MDTextField:
-                            id: text_field_error
-                            hint_text: "Helper text on error (Hit Enter with two characters here)"
-                            helper_text: "Two is my least favorite number"
-                            helper_text_mode: "on_error"
-                        MDTextField:
-                            hint_text: "Max text length = 10"
-                            max_text_length: 10
-                        MDTextField:
-                            hint_text: "required = True"
-                            required: True
-                            helper_text_mode: "on_error"
-                        MDTextField:
-                            multiline: True
-                            hint_text: "Multi-line text"
-                            helper_text: "Messages are also supported here"
-                            helper_text_mode: "persistent"
-                        MDTextField:
-                            hint_text: "color_mode = \'accent\'"
-                            color_mode: 'accent'
-                        MDTextField:
-                            hint_text: "color_mode = \'custom\'"
-                            color_mode: 'custom'
-                            helper_text_mode: "on_focus"
-                            helper_text: "Color is defined by \'line_color_focus\' property"
-                            line_color_focus: self.theme_cls.opposite_bg_normal  # This is the color used by the textfield
-                        MDTextField:
-                            hint_text: "disabled = True"
-                            disabled: True
-
-            Screen:
-                name: 'theming'
-                BoxLayout:
-                    orientation: 'vertical'
-                    size_hint_y: None
-                    height: dp(80)
-                    center_y: self.parent.center_y
-                    MDRaisedButton:
-                        size_hint: None, None
-                        size: 3 * dp(48), dp(48)
-                        center_x: self.parent.center_x
-                        text: 'Change theme'
-                        on_release: MDThemePicker().open()
-                        opposite_colors: True
-                        pos_hint: {'center_x': 0.5}
-                    MDLabel:
-                        text: "Current: " + app.theme_cls.theme_style + ", " + app.theme_cls.primary_palette
-                        theme_text_color: 'Primary'
-                        pos_hint: {'center_x': 0.5}
-                        halign: 'center'
-
-            Screen:
-                name: 'toolbar'
-                Toolbar:
-                    title: "Simple toolbar"
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.75}
-                    md_bg_color: get_color_from_hex(colors['Teal']['500'])
-                    background_palette: 'Teal'
-                    background_hue: '500'
-                Toolbar:
-                    title: "Toolbar with right buttons"
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                    md_bg_color: get_color_from_hex(colors['Amber']['700'])
-                    background_palette: 'Amber'
-                    background_hue: '700'
-                    right_action_items: [['content-copy', lambda x: None]]
-                Toolbar:
-                    title: "Toolbar with left and right buttons"
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.25}
-                    md_bg_color: get_color_from_hex(colors['DeepPurple']['A400'])
-                    background_palette: 'DeepPurple'
-                    background_hue: 'A400'
-                    left_action_items: [['arrow-left', lambda x: None]]
-                    right_action_items: [['lock', lambda x: None], \
-                        ['camera', lambda x: None], \
-                        ['play', lambda x: None]]
-            Screen:
-                name: 'tabs'
-                MDTabbedPanel:
-                    id: tab_panel
-                    tab_display_mode:'text'
-
-                    MDTab:
-                        name: 'music'
-                        text: "Music" # Why are these not set!!!
-                        icon: "playlist-play"
-                        MDLabel:
-                            font_style: 'Body1'
-                            theme_text_color: 'Primary'
-                            text: "Here is my music list :)"
-                            halign: 'center'
-                    MDTab:
-                        name: 'movies'
-                        text: 'Movies'
-                        icon: "movie"
-
-                        MDLabel:
-                            font_style: 'Body1'
-                            theme_text_color: 'Primary'
-                            text: "Show movies here :)"
-                            halign: 'center'
-
-                BoxLayout:
-                    size_hint_y:None
-                    height: '48dp'
-                    padding: '12dp'
-                    MDLabel:
-                        font_style: 'Body1'
-                        theme_text_color: 'Primary'
-                        text: "Use icons"
-                        size_hint_x:None
-                        width: '64dp'
-                    MDCheckbox:
-                        on_state: tab_panel.tab_display_mode = 'icons' if tab_panel.tab_display_mode=='text' else 'text'
-            Screen:
-                name: 'accordion'
-                BoxLayout:
-                    MDAccordion:
-                        orientation: 'vertical'
-                        size_hint_x: None
-                        width: '240dp'
-                        MDAccordionItem:
-                            title:'Item 1'
-                            icon: 'home'
-                            MDAccordionSubItem:
-                                text: "Subitem 1"
-                            MDAccordionSubItem:
-                                text: "Subitem 2"
-                            MDAccordionSubItem:
-                                text: "Subitem 3"
-                        MDAccordionItem:
-                            title:'Item 2'
-                            icon: 'earth'
-                            MDAccordionSubItem:
-                                text: "Subitem 4"
-                            MDAccordionSubItem:
-                                text: "Subitem 5"
-                            MDAccordionSubItem:
-                                text: "Subitem 6"
-                        MDAccordionItem:
-                            title:'Item 3'
-                            icon: 'account'
-                            MDAccordionSubItem:
-                                text: "Subitem 7"
-                            MDAccordionSubItem:
-                                text: "Subitem 8"
-                            MDAccordionSubItem:
-                                text: "Subitem 9"
-                    MDLabel:
-                        text: 'Content'
-                        theme_text_color: 'Primary'
-            Screen:
-                name: 'pickers'
-                BoxLayout:
-                    spacing: dp(40)
-                    orientation: 'vertical'
-                    size_hint_x: None
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                    BoxLayout:
-                        orientation: 'vertical'
-                        # size_hint: (None, None)
-                        MDRaisedButton:
-                            text: "Open time picker"
-                            size_hint: None, None
-                            size: 3 * dp(48), dp(48)
-                            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                            opposite_colors: True
-                            on_release: app.show_example_time_picker()
-                        MDLabel:
-                            id: time_picker_label
-                            theme_text_color: 'Primary'
-                            size_hint: None, None
-                            size: dp(48)*3, dp(48)
-                            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                        BoxLayout:
-                            size: dp(48)*3, dp(48)
-                            size_hint: (None, None)
-                            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                            MDLabel:
-                                theme_text_color: 'Primary'
-                                text: "Start on previous time"
-                                size_hint: None, None
-                                size: dp(130), dp(48)
-                            MDCheckbox:
-                                id: time_picker_use_previous_time
-                                size_hint: None, None
-                                size: dp(48), dp(48)
-                    BoxLayout:
-                        orientation: 'vertical'
-                        MDRaisedButton:
-                            text: "Open date picker"
-                            size_hint: None, None
-                            size: 3 * dp(48), dp(48)
-                            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                            opposite_colors: True
-                            on_release: app.show_example_date_picker()
-                        MDLabel:
-                            id: date_picker_label
-                            theme_text_color: 'Primary'
-                            size_hint: None, None
-                            size: dp(48)*3, dp(48)
-                            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                        BoxLayout:
-                            size: dp(48)*3, dp(48)
-                            size_hint: (None, None)
-                            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                            MDLabel:
-                                theme_text_color: 'Primary'
-                                text: "Start on previous date"
-                                size_hint: None, None
-                                size: dp(130), dp(48)
-                            MDCheckbox:
-                                id: date_picker_use_previous_date
-                                size_hint: None, None
-                                size: dp(48), dp(48)
-            Screen:
-                name: 'bottom_navigation'
-                MDBottomNavigation:
-                    id: bottom_navigation_demo
-                    MDBottomNavigationItem:
-                        name: 'octagon'
-                        text: "Warning"
-                        icon: "alert-octagon"
-                        MDLabel:
-                            font_style: 'Body1'
-                            theme_text_color: 'Primary'
-                            text: "Warning!"
-                            halign: 'center'
-                    MDBottomNavigationItem:
-                        name: 'banking'
-                        text: "Bank"
-                        icon: 'bank'
                         BoxLayout:
                             orientation: 'vertical'
+                            spacing: dp(10)
                             size_hint_y: None
-                            padding: dp(48)
-                            spacing: 10
-                            MDTextField:
-                                hint_text: "You can put any widgets here"
-                                helper_text: "Hello :)"
-                                helper_text_mode: "on_focus"
-                    MDBottomNavigationItem:
-                        name: 'bottom_navigation_desktop_1'
-                        text: "Hello"
-                        icon: 'alert'
-                        id: bottom_navigation_desktop_1
-                        BoxLayout:
-                            orientation: 'vertical'
-                            size_hint_y: None
-                            padding: dp(48)
-                            spacing: 10
-                            MDTextField:
-                                hint_text: "Hello again"
-                    MDBottomNavigationItem:
-                        name: 'bottom_navigation_desktop_2'
-                        text: "Food"
-                        icon: 'food'
-                        id: bottom_navigation_desktop_2
-                        MDLabel:
-                            font_style: 'Body1'
-                            theme_text_color: 'Primary'
-                            text: "Cheese!"
-                            halign: 'center'
-            Screen:
-                name: 'nav_drawer'
-                HackedDemoNavDrawer:
-                    # NavigationDrawerToolbar:
-                    #     title: "Navigation Drawer Widgets"
-                    NavigationDrawerIconButton:
-                        icon: 'checkbox-blank-circle'
-                        text: "Badge text ---->"
-                        badge_text: "99+"
-                    NavigationDrawerIconButton:
-                        active_color_type: 'accent'
-                        text: "Accent active color"
-                    NavigationDrawerIconButton:
-                        active_color_type: 'custom'
-                        text: "Custom active color"
-                        active_color: [1, 0, 1, 1]
-                    NavigationDrawerIconButton:
-                        use_active: False
-                        text: "Use active = False"
-                    NavigationDrawerIconButton:
-                        text: "Different icon"
-                        icon: 'alarm'
-                    NavigationDrawerDivider:
-                    NavigationDrawerSubheader:
-                        text: "NavigationDrawerSubheader"
-                    NavigationDrawerIconButton:
-                        text: "NavigationDrawerDivider \/"
-                    NavigationDrawerDivider:
+                            height: self.minimum_height
+                            pos_hint: {'center_x': .5, 'center_y': .5}
 
-'''
+                            MDLabel:
+                                text: app.previous_text
+                                size_hint_y: None
+                                height: self.texture_size[1]
+                                font_style: 'Subtitle1'
+                                theme_text_color: 'Primary'
+                                markup: True
+                                halign: 'center'
+                                text_size: self.width - 20, None
+
+                            MDRaisedButton:
+                                text: 'Click Me'
+                                pos_hint: {'center_x': .5}
+                                on_release:
+                                    app.set_menu_for_demo_apps()
+                                    app.instance_menu_demo_apps = MDDropdownMenu(\
+                                    items=app.menu_for_demo_apps, \
+                                    max_height=dp(260), width_mult=4)
+                                    app.instance_menu_demo_apps.open(self)
+
+                            MDLabel:
+                                text: app.previous_text_end
+                                size_hint_y: None
+                                height: self.texture_size[1]
+                                font_style: 'Subtitle1'
+                                theme_text_color: 'Primary'
+                                markup: True
+                                halign: 'center'
+                                text_size: self.width - 20, None
+"""
 
 
-class HackedDemoNavDrawer(MDNavigationDrawer):
-    # DO NOT USE
-    def add_widget(self, widget, index=0):
-        if issubclass(widget.__class__, BaseListItem):
-            self._list.add_widget(widget, index)
-            if len(self._list.children) == 1:
-                widget._active = True
-                self.active_item = widget
-            # widget.bind(on_release=lambda x: self.panel.toggle_state())
-            widget.bind(on_release=lambda x: x._set_active(True, list=self))
-        elif issubclass(widget.__class__, NavigationDrawerHeaderBase):
-            self._header_container.add_widget(widget)
-        else:
-            super(MDNavigationDrawer, self).add_widget(widget, index)
-
-
-class KitchenSink(App):
+class KitchenSink(App, Screens):
     theme_cls = ThemeManager()
+    theme_cls.primary_palette = "BlueGray"
+    theme_cls.accent_palette = "Gray"
     previous_date = ObjectProperty()
-    title = "KivyMD Kitchen Sink"
+    title = "Kitchen Sink"
+    theme_cls.theme_style = "Dark"
 
-    menu_items = [
-        {'viewclass': 'MDMenuItem',
-         'text': 'Example item'},
-        {'viewclass': 'MDMenuItem',
-         'text': 'Example item'},
-        {'viewclass': 'MDMenuItem',
-         'text': 'Example item'},
-        {'viewclass': 'MDMenuItem',
-         'text': 'Example item'},
-        {'viewclass': 'MDMenuItem',
-         'text': 'Example item'},
-        {'viewclass': 'MDMenuItem',
-         'text': 'Example item'},
-        {'viewclass': 'MDMenuItem',
-         'text': 'Example item'},
-    ]
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        self.menu_items = [
+            {
+                "viewclass": "MDMenuItem",
+                "text": "Example item %d" % i,
+                "callback": self.callback_for_menu_items,
+            }
+            for i in range(15)
+        ]
+        self.Window = Window
+        self.manager = None
+        self.md_app_bar = None
+        self.instance_menu_demo_apps = None
+        self.md_theme_picker = None
+        self.long_dialog = None
+        self.input_dialog = None
+        self.alert_dialog = None
+        self.ok_cancel_dialog = None
+        self.long_dialog = None
+        self.dialog = None
+        self.manager_open = False
+        self.cards_created = False
+        self.user_card = None
+        self.bs_menu_1 = None
+        self.bs_menu_2 = None
+        self.my_snackbar = None
+        self._interval = 0
+        self.tick = 0
+        self.x = 0
+        self.y = 25
+        self.create_stack_floating_buttons = False
+        self.hex_primary_color = get_hex_from_color(self.theme_cls.primary_color)
+        self.previous_text = (
+            f"Welcome to the application [b][color={self.hex_primary_color}]"
+            f"Kitchen Sink[/color][/b].\nTo see [b]"
+            f"[color={self.hex_primary_color}]KivyMD[/color][/b] "
+            f"examples, open the menu and select from the list the desired "
+            f"example or"
+        )
+        self.previous_text_end = (
+            f"for show example apps\n\n"
+            f"Author - [b][color={self.hex_primary_color}]"
+            f"Andrés Rodríguez[/color][/b]\n"
+            f"[u][b][color={self.hex_primary_color}]"
+            f"andres.rodriguez@lithersoft.com[/color][/b][/u]\n\n"
+            f"Author this Fork - [b][color={self.hex_primary_color}]"
+            f"Ivanov Yuri[/color][/b]\n"
+            f"[u][b][color={self.hex_primary_color}]"
+            f"kivydevelopment@gmail.com[/color][/b][u]"
+        )
+        self.names_contacts = (
+            "Alexandr Taylor",
+            "Yuri Ivanov",
+            "Robert Patric",
+            "Bob Marley",
+            "Magnus Carlsen",
+            "Jon Romero",
+            "Anna Bell",
+            "Maxim Kramerer",
+            "Sasha Gray",
+            "Vladimir Ivanenko",
+        )
+        self.demo_apps_list = [
+            "Shop Window",
+            "Coffee Menu",
+            "Fitness Club",
+            "Registration",
+            "Account Page",
+        ]
+        self.menu_for_demo_apps = []
+        self.list_name_icons = list(md_icons.keys())[0:15]
+        Window.bind(on_keyboard=self.events)
+        crop_image(
+            (Window.width, int(dp(Window.height * 35 // 100))),
+            f"{self.directory}/assets/guitar-1139397_1280.png",
+            f"{self.directory}/assets/guitar-1139397_1280_crop.png",
+        )
+
+    def set_list_for_refresh_layout(self):
+        async def set_list_for_refresh_layout():
+            names_icons_list = list(md_icons.keys())[self.x : self.y]
+            for name_icon in names_icons_list:
+                await asynckivy.sleep(0)
+                self.data["Refresh Layout"]["object"].ids.box.add_widget(
+                    ItemForListRefreshLayout(icon=name_icon, text=name_icon)
+                )
+            self.data["Refresh Layout"]["object"].ids.refresh_layout.refresh_done()
+
+        asynckivy.start(set_list_for_refresh_layout())
+
+    def refresh_callback(self, *args):
+        """A method that updates the state of your application
+        while the spinner remains on the screen."""
+
+        def refresh_callback(interval):
+            self.data["Refresh Layout"]["object"].ids.box.clear_widgets()
+            if self.x == 0:
+                self.x, self.y = 25, 50
+            else:
+                self.x, self.y = 0, 25
+            self.set_list_for_refresh_layout()
+            self.tick = 0
+
+        Clock.schedule_once(refresh_callback, 1)
+
+    def build_tabs(self):
+        for name_tab in self.list_name_icons:
+            tab = Factory.MyTab(text=name_tab)
+            self.data["Tabs"]["object"].ids.android_tabs.add_widget(tab)
+
+    def switch_tabs_to_icon(self, istance_android_tabs):
+        for i, instance_tab in enumerate(
+            istance_android_tabs.ids.scrollview.children[0].children
+        ):
+            istance_android_tabs.ids.scrollview.children[0].remove_widget(instance_tab)
+            istance_android_tabs.add_widget(Factory.MyTab(text=self.list_name_icons[i]))
+
+    def switch_tabs_to_text(self, istance_android_tabs):
+        for instance_tab in istance_android_tabs.ids.scrollview.children[0].children:
+            for k, v in md_icons.items():
+                if v == instance_tab.text:
+                    istance_android_tabs.ids.scrollview.children[0].remove_widget(
+                        instance_tab
+                    )
+                    istance_android_tabs.add_widget(
+                        Factory.MyTab(text=" ".join(k.split("-")).capitalize())
+                    )
+                    break
+
+    def crop_image_for_tile(self, instance, size, path_to_crop_image):
+        """Crop images for Grid screen."""
+
+        if not os.path.exists(os.path.join(self.directory, path_to_crop_image)):
+            size = (int(size[0]), int(size[1]))
+            path_to_origin_image = path_to_crop_image.replace("_tile_crop", "")
+            crop_image(size, path_to_origin_image, path_to_crop_image)
+        instance.source = path_to_crop_image
+
+    def theme_picker_open(self):
+        if not self.md_theme_picker:
+            from kivymd.pickers import MDThemePicker
+
+            self.md_theme_picker = MDThemePicker()
+        self.md_theme_picker.open()
+
+    def example_add_stack_floating_buttons(self):
+        from kivymd.stackfloatingbuttons import MDStackFloatingButtons
+
+        def set_my_language(instance_button):
+            toast(instance_button.icon)
+
+        if not self.create_stack_floating_buttons:
+            screen = self.main_widget.ids.scr_mngr.get_screen("stack buttons")
+            screen.add_widget(
+                MDStackFloatingButtons(
+                    icon="lead-pencil",
+                    floating_data={
+                        "Python": "language-python",
+                        "Php": "language-php",
+                        "C++": "language-cpp",
+                    },
+                    callback=set_my_language,
+                )
+            )
+            self.create_stack_floating_buttons = True
+
+    def set_accordion_list(self):
+        from kivymd.accordionlistitem import MDAccordionListItem
+
+        def callback(text):
+            toast(f"{text} to {content.name_item}")
+
+        content = ContentForAnimCard(callback=callback)
+
+        for name_contact in self.names_contacts:
+            self.data["Accordion List"]["object"].ids.anim_list.add_widget(
+                MDAccordionListItem(
+                    content=content,
+                    icon="assets/kivy-logo-white-512.png",
+                    title=name_contact,
+                )
+            )
+
+    def set_chevron_back_screen(self):
+        """Sets the return chevron to the previous screen in ToolBar."""
+
+        self.main_widget.ids.toolbar.right_action_items = [
+            ["dots-vertical", lambda x: self.root.toggle_nav_drawer()]
+        ]
+
+    def download_progress_hide(self, instance_progress, value):
+        """Hides progress progress."""
+
+        self.main_widget.ids.toolbar.right_action_items = [
+            ["download", lambda x: self.download_progress_show(instance_progress)]
+        ]
+
+    def download_progress_show(self, instance_progress):
+        self.set_chevron_back_screen()
+        instance_progress.open()
+        instance_progress.animation_progress_from_fade()
+
+    def show_example_download_file(self, interval):
+        from kivymd.progressloader import MDProgressLoader
+
+        def get_connect(host="8.8.8.8", port=53, timeout=3):
+            import socket
+
+            try:
+                socket.setdefaulttimeout(timeout)
+                socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect((host, port))
+                return True
+            except (TimeoutError, ConnectionError, OSError):
+                return False
+
+        if get_connect():
+            link = (
+                "https://www.python.org/ftp/python/3.5.1/"
+                "python-3.5.1-embed-win32.zip"
+            )
+            progress = MDProgressLoader(
+                url_on_image=link,
+                path_to_file=os.path.join(self.directory, "python-3.5.1.zip"),
+                download_complete=self.download_complete,
+                download_hide=self.download_progress_hide,
+            )
+            progress.start(self.data["Download File"]["object"].ids.box_flt)
+        else:
+            toast("Connect error!")
+
+    def download_complete(self):
+        self.set_chevron_back_screen()
+        toast("Done")
+
+    def file_manager_open(self):
+        from kivymd.filemanager import MDFileManager
+        from kivymd.dialog import MDDialog
+
+        def open_file_manager(text_item, dialog):
+            previous = False if text_item == "List" else True
+            self.manager = ModalView(size_hint=(1, 1), auto_dismiss=False)
+            self.file_manager = MDFileManager(
+                exit_manager=self.exit_manager,
+                select_path=self.select_path,
+                previous=previous,
+            )
+            self.manager.add_widget(self.file_manager)
+            self.file_manager.show(self.user_data_dir)
+            self.manager_open = True
+            self.manager.open()
+
+        MDDialog(
+            title="Title",
+            size_hint=(0.8, 0.4),
+            text_button_ok="List",
+            text="Open manager with 'list' or 'previous' mode?",
+            text_button_cancel="Previous",
+            events_callback=open_file_manager,
+        ).open()
+
+    def select_path(self, path):
+        """It will be called when you click on the file name
+        or the catalog selection button.
+        :type path: str;
+        :param path: path to the selected directory or file;
+        """
+
+        self.exit_manager()
+        toast(path)
+
+    def exit_manager(self, *args):
+        """Called when the user reaches the root of the directory tree."""
+
+        self.manager.dismiss()
+        self.manager_open = False
+        self.set_chevron_menu()
+
+    def set_chevron_menu(self):
+        self.main_widget.ids.toolbar.left_action_items = [
+            ["menu", lambda x: self.root.toggle_nav_drawer()]
+        ]
+
+    def events(self, instance, keyboard, keycode, text, modifiers):
+        """Called when buttons are pressed on the mobile device."""
+
+        if keyboard in (1001, 27):
+            if self.manager_open:
+                self.file_manager.back()
+        return True
+
+    def callback_for_menu_items(self, *args):
+        toast(args[0])
+
+    def add_cards(self, instance_grid_card):
+        """Adds MDCardPost objects to the screen Cards
+        when the screen is open."""
+
+        from kivymd.cards import MDCardPost
+
+        def callback(instance, value):
+            if value is None:
+                toast("Delete post %s" % str(instance))
+            elif isinstance(value, int):
+                toast("Set like in %d stars" % value)
+            elif isinstance(value, str):
+                toast("Repost with %s " % value)
+            elif isinstance(value, list):
+                toast(value[1])
+
+        if not self.cards_created:
+            self.cards_created = True
+            menu_items = [
+                {
+                    "viewclass": "MDMenuItem",
+                    "text": "Example item %d" % i,
+                    "callback": self.callback_for_menu_items,
+                }
+                for i in range(2)
+            ]
+            buttons = ["facebook", "vk", "twitter"]
+
+            instance_grid_card.add_widget(
+                MDCardPost(text_post="Card with text", swipe=True, callback=callback)
+            )
+            instance_grid_card.add_widget(
+                MDCardPost(
+                    right_menu=menu_items,
+                    swipe=True,
+                    text_post="Card with a button to open the menu MDDropDown",
+                    callback=callback,
+                )
+            )
+            instance_grid_card.add_widget(
+                MDCardPost(
+                    likes_stars=True,
+                    callback=callback,
+                    swipe=True,
+                    text_post="Card with asterisks for voting.",
+                )
+            )
+
+            instance_grid_card.add_widget(
+                MDCardPost(
+                    source="./assets/kitten-1049129_1280.png",
+                    tile_text="Little Baby",
+                    tile_font_style="H5",
+                    text_post="This is my favorite cat. He's only six months "
+                    "old. He loves milk and steals sausages :) "
+                    "And he likes to play in the garden.",
+                    with_image=True,
+                    swipe=True,
+                    callback=callback,
+                    buttons=buttons,
+                )
+            )
+
+    def update_screen(self, instance):
+        """Set new label on the screen UpdateSpinner."""
+
+        def update_screen(interval):
+            self.tick += 1
+            if self.tick > 2:
+                instance.update = True
+                self.tick = 0
+                self.data["Update Screen Widget"][
+                    "object"
+                ].ids.upd_lbl.text = "New string"
+                Clock.unschedule(update_screen)
+
+        Clock.schedule_interval(update_screen, 1)
+
+    main_widget = None
 
     def build(self):
-        main_widget = Builder.load_string(main_widget_kv)
-        # self.theme_cls.theme_style = 'Dark'
+        self.main_widget = Builder.load_string(main_widget_kv)
+        return self.main_widget
 
-        main_widget.ids.text_field_error.bind(
-            on_text_validate=self.set_error_message,
-            on_focus=self.set_error_message)
-        self.bottom_navigation_remove_mobile(main_widget)
-        return main_widget
+    def set_popup_screen(self, content_popup):
+        popup_menu = ContentForAnimCard()
+        popup_menu.add_widget(Widget(size_hint_y=None, height=dp(150)))
+        popup_screen = self.data["Popup Screen"]["object"].ids.popup_screen
+        popup_screen.screen = popup_menu
+        popup_screen.background_color = [0.3, 0.3, 0.3, 1]
+        popup_screen.max_height = content_popup.ids.image.height + dp(5)
 
-    def bottom_navigation_remove_mobile(self, widget):
-        # Removes some items from bottom-navigation demo when on mobile
-        if DEVICE_TYPE == 'mobile':
-            widget.ids.bottom_navigation_demo.remove_widget(widget.ids.bottom_navigation_desktop_2)
-        if DEVICE_TYPE == 'mobile' or DEVICE_TYPE == 'tablet':
-            widget.ids.bottom_navigation_demo.remove_widget(widget.ids.bottom_navigation_desktop_1)
+    def show_user_example_animation_card(self):
+        """Create and open instance MDUserAnimationCard
+        for the screen UserCard."""
+
+        from kivymd.useranimationcard import MDUserAnimationCard
+
+        def main_back_callback():
+            toast("Close card")
+
+        if not self.user_card:
+            self.user_card = MDUserAnimationCard(
+                user_name="Lion Lion",
+                path_to_avatar="./assets/guitar-1139397_1280.png",
+                callback=main_back_callback,
+            )
+            self.user_card.box_content.add_widget(ContentForAnimCard())
+        self.user_card.open()
 
     def show_example_snackbar(self, snack_type):
-        if snack_type == 'simple':
+        """Create and show instance Snackbar for the screen MySnackBar."""
+
+        def callback(instance):
+            toast(instance.text)
+
+        def wait_interval(interval):
+            self._interval += interval
+            if self._interval > self.my_snackbar.duration:
+                anim = Animation(y=dp(10), d=0.2)
+                anim.start(self.data["Snackbars"]["object"].ids.button)
+                Clock.unschedule(wait_interval)
+                self._interval = 0
+                self.my_snackbar = None
+
+        from kivymd.snackbars import Snackbar
+
+        if snack_type == "simple":
             Snackbar(text="This is a snackbar!").show()
-        elif snack_type == 'button':
-            Snackbar(text="This is a snackbar", button_text="with a button!", button_callback=lambda *args: 2).show()
-        elif snack_type == 'verylong':
-            Snackbar(text="This is a very very very very very very very long snackbar!").show()
+        elif snack_type == "button":
+            Snackbar(
+                text="This is a snackbar",
+                button_text="with a button!",
+                button_callback=callback,
+            ).show()
+        elif snack_type == "verylong":
+            Snackbar(
+                text="This is a very very very very very very very " "long snackbar!"
+            ).show()
+        elif snack_type == "float":
+            if not self.my_snackbar:
+                self.my_snackbar = Snackbar(
+                    text="This is a snackbar!",
+                    button_text="Button",
+                    duration=3,
+                    button_callback=callback,
+                )
+                self.my_snackbar.show()
+                anim = Animation(y=dp(72), d=0.2)
+                anim.bind(
+                    on_complete=lambda *args: Clock.schedule_interval(wait_interval, 0)
+                )
+                anim.start(self.data["Snackbars"]["object"].ids.button)
 
-    def show_example_dialog(self):
-        content = MDLabel(font_style='Body1',
-                          theme_text_color='Secondary',
-                          text="This is a dialog with a title and some text. "
-                               "That's pretty awesome right!",
-                          size_hint_y=None,
-                          valign='top')
-        content.bind(texture_size=content.setter('size'))
-        self.dialog = MDDialog(title="This is a test dialog",
-                               content=content,
-                               size_hint=(.8, None),
-                               height=dp(200),
-                               auto_dismiss=False)
+    def show_example_input_dialog(self):
+        """Creates an instance of the dialog box and displays it
+        on the screen for the screen Dialogs."""
 
-        self.dialog.add_action_button("Dismiss",
-                                      action=lambda *x: self.dialog.dismiss())
-        self.dialog.open()
+        def result(text_button, instance):
+            toast(instance.text_field.text)
+
+        if not self.input_dialog:
+            from kivymd.dialog import MDInputDialog
+
+            self.input_dialog = MDInputDialog(
+                title="Title",
+                hint_text="Hint text",
+                size_hint=(0.8, 0.4),
+                text_button_ok="Ok",
+                events_callback=result,
+            )
+        self.input_dialog.open()
+
+    def show_example_alert_dialog(self):
+        if not self.alert_dialog:
+            from kivymd.dialog import MDDialog
+
+            self.alert_dialog = MDDialog(
+                title="Title",
+                size_hint=(0.8, 0.4),
+                text_button_ok="Ok",
+                text="This is Alert dialog",
+                events_callback=self.callback_for_menu_items,
+            )
+        self.alert_dialog.open()
+
+    def show_example_ok_cancel_dialog(self):
+        if not self.ok_cancel_dialog:
+            from kivymd.dialog import MDDialog
+
+            self.ok_cancel_dialog = MDDialog(
+                title="Title",
+                size_hint=(0.8, 0.4),
+                text_button_ok="Ok",
+                text="This is Ok Cancel dialog",
+                text_button_cancel="Cancel",
+                events_callback=self.callback_for_menu_items,
+            )
+        self.ok_cancel_dialog.open()
 
     def show_example_long_dialog(self):
-        content = MDLabel(font_style='Body1',
-                          theme_text_color='Secondary',
-                          text="Lorem ipsum dolor sit amet, consectetur "
-                               "adipiscing elit, sed do eiusmod tempor "
-                               "incididunt ut labore et dolore magna aliqua. "
-                               "Ut enim ad minim veniam, quis nostrud "
-                               "exercitation ullamco laboris nisi ut aliquip "
-                               "ex ea commodo consequat. Duis aute irure "
-                               "dolor in reprehenderit in voluptate velit "
-                               "esse cillum dolore eu fugiat nulla pariatur. "
-                               "Excepteur sint occaecat cupidatat non "
-                               "proident, sunt in culpa qui officia deserunt "
-                               "mollit anim id est laborum.",
-                          size_hint_y=None,
-                          valign='top')
-        content.bind(texture_size=content.setter('size'))
-        self.dialog = MDDialog(title="This is a long test dialog",
-                               content=content,
-                               size_hint=(.8, None),
-                               height=dp(200),
-                               auto_dismiss=False)
+        if not self.long_dialog:
+            from kivymd.dialog import MDDialog
 
-        self.dialog.add_action_button("Dismiss",
-                                      action=lambda *x: self.dialog.dismiss())
-        self.dialog.open()
+            self.long_dialog = MDDialog(
+                text="Lorem ipsum dolor sit amet, consectetur adipiscing "
+                "elit, sed do eiusmod tempor incididunt ut labore et "
+                "dolore magna aliqua. Ut enim ad minim veniam, quis "
+                "nostrud exercitation ullamco laboris nisi ut aliquip "
+                "ex ea commodo consequat. Duis aute irure dolor in "
+                "reprehenderit in voluptate velit esse cillum dolore eu "
+                "fugiat nulla pariatur. Excepteur sint occaecat "
+                "cupidatat non proident, sunt in culpa qui officia "
+                "deserunt mollit anim id est laborum.",
+                title="Title",
+                size_hint=(0.8, 0.4),
+                text_button_ok="Yes",
+                events_callback=self.callback_for_menu_items,
+            )
+        self.long_dialog.open()
 
-    def get_time_picker_data(self, instance, time):
-        self.root.ids.time_picker_label.text = str(time)
+    def get_time_picker_date(self, instance, time):
+        """Get date for MDTimePicker from the screen Pickers."""
+
+        self.data["Pickers"]["object"].ids.time_picker_label.text = str(time)
         self.previous_time = time
 
     def show_example_time_picker(self):
-        self.time_dialog = MDTimePicker()
-        self.time_dialog.bind(time=self.get_time_picker_data)
-        if self.root.ids.time_picker_use_previous_time.active:
+        """Show MDTimePicker from the screen Pickers."""
+
+        from kivymd.pickers import MDTimePicker
+
+        time_dialog = MDTimePicker()
+        time_dialog.bind(time=self.get_time_picker_date)
+
+        if self.data["Pickers"]["object"].ids.time_picker_use_previous_time.active:
             try:
-                self.time_dialog.set_time(self.previous_time)
+                time_dialog.set_time(self.previous_time)
             except AttributeError:
                 pass
-        self.time_dialog.open()
+        time_dialog.open()
 
     def set_previous_date(self, date_obj):
+        """Set previous date for MDDatePicker from the screen Pickers."""
+
         self.previous_date = date_obj
-        self.root.ids.date_picker_label.text = str(date_obj)
+        self.data["Pickers"]["object"].ids.date_picker_label.text = str(date_obj)
 
     def show_example_date_picker(self):
-        if self.root.ids.date_picker_use_previous_date.active:
+        """Show MDDatePicker from the screen Pickers."""
+
+        from kivymd.pickers import MDDatePicker
+
+        if self.data["Pickers"]["object"].ids.date_picker_use_previous_date.active:
             pd = self.previous_date
             try:
-                MDDatePicker(self.set_previous_date,
-                             pd.year, pd.month, pd.day).open()
+                MDDatePicker(self.set_previous_date, pd.year, pd.month, pd.day).open()
             except AttributeError:
                 MDDatePicker(self.set_previous_date).open()
         else:
             MDDatePicker(self.set_previous_date).open()
 
     def show_example_bottom_sheet(self):
-        bs = MDListBottomSheet()
-        bs.add_item("Here's an item with text only", lambda x: x)
-        bs.add_item("Here's an item with an icon", lambda x: x,
-                    icon='clipboard-account')
-        bs.add_item("Here's another!", lambda x: x, icon='nfc')
-        bs.open()
+        """Show menu from the screen BottomSheet."""
+
+        from kivymd.bottomsheet import MDListBottomSheet
+
+        if not self.bs_menu_1:
+            self.bs_menu_1 = MDListBottomSheet()
+            self.bs_menu_1.add_item(
+                "Here's an item with text only",
+                lambda x: self.callback_for_menu_items("Here's an item with text only"),
+            )
+            self.bs_menu_1.add_item(
+                "Here's an item with an icon",
+                lambda x: self.callback_for_menu_items("Here's an item with an icon"),
+                icon="clipboard-account",
+            )
+            self.bs_menu_1.add_item(
+                "Here's another!",
+                lambda x: self.callback_for_menu_items("Here's another!"),
+                icon="nfc",
+            )
+        self.bs_menu_1.open()
 
     def show_example_grid_bottom_sheet(self):
-        bs = MDGridBottomSheet()
-        bs.add_item("Facebook", lambda x: x,
-                    icon_src='./assets/facebook-box.png')
-        bs.add_item("YouTube", lambda x: x,
-                    icon_src='./assets/youtube-play.png')
-        bs.add_item("Twitter", lambda x: x,
-                    icon_src='./assets/twitter.png')
-        bs.add_item("Da Cloud", lambda x: x,
-                    icon_src='./assets/cloud-upload.png')
-        bs.add_item("Camera", lambda x: x,
-                    icon_src='./assets/camera.png')
-        bs.open()
+        """Show menu from the screen BottomSheet."""
+
+        if not self.bs_menu_2:
+            from kivymd.bottomsheet import MDGridBottomSheet
+
+            self.bs_menu_2 = MDGridBottomSheet()
+            self.bs_menu_2.add_item(
+                "Facebook",
+                lambda x: self.callback_for_menu_items("Facebook"),
+                icon_src="./assets/facebook-box.png",
+            )
+            self.bs_menu_2.add_item(
+                "YouTube",
+                lambda x: self.callback_for_menu_items("YouTube"),
+                icon_src="./assets/youtube-play.png",
+            )
+            self.bs_menu_2.add_item(
+                "Twitter",
+                lambda x: self.callback_for_menu_items("Twitter"),
+                icon_src="./assets/twitter.png",
+            )
+            self.bs_menu_2.add_item(
+                "Da Cloud",
+                lambda x: self.callback_for_menu_items("Da Cloud"),
+                icon_src="./assets/cloud-upload.png",
+            )
+            self.bs_menu_2.add_item(
+                "Camera",
+                lambda x: self.callback_for_menu_items("Camera"),
+                icon_src="./assets/camera.png",
+            )
+        self.bs_menu_2.open()
+
+    def set_title_toolbar(self, title):
+        """Set string title in MDToolbar for the whole application."""
+
+        self.main_widget.ids.toolbar.title = title
+
+    def set_appbar(self):
+        """Create MDBottomAppBar for the screen BottomAppBar."""
+
+        from kivymd.toolbar import MDBottomAppBar
+
+        def press_button(inctance):
+            toast("Press Button")
+
+        self.md_app_bar = MDBottomAppBar(
+            md_bg_color=self.theme_cls.primary_color,
+            left_action_items=[
+                ["menu", lambda x: x],
+                ["clock", lambda x: x],
+                ["dots-vertical", lambda x: x],
+            ],
+            anchor="right",
+            callback=press_button,
+        )
+
+    def move_item_menu(self, anchor):
+        """Sets icons in MDBottomAppBar for the screen BottomAppBar."""
+
+        md_app_bar = self.md_app_bar
+        if md_app_bar.anchor != anchor:
+            if len(md_app_bar.right_action_items):
+                md_app_bar.left_action_items.append(md_app_bar.right_action_items[0])
+                md_app_bar.right_action_items = []
+            else:
+                left_action_items = md_app_bar.left_action_items
+                action_items = left_action_items[0:2]
+                md_app_bar.right_action_items = [left_action_items[-1]]
+                md_app_bar.left_action_items = action_items
+
+    def show_password(self, field, button):
+        """
+        Called when you press the right button in the password field
+        for the screen TextFields.
+
+        instance_field: kivy.uix.textinput.TextInput;
+        instance_button: kivymd.button.MDIconButton;
+
+        """
+
+        # Show or hide text of password, set focus field
+        # and set icon of right button.
+        field.password = not field.password
+        field.focus = True
+        button.icon = "eye" if button.icon == "eye-off" else "eye-off"
 
     def set_error_message(self, *args):
-        if len(self.root.ids.text_field_error.text) == 2:
-            self.root.ids.text_field_error.error = True
+        """Checks text of TextField with type "on_error"
+        for the screen TextFields."""
+
+        text_field_error = args[0]
+        if len(text_field_error.text) == 2:
+            text_field_error.error = True
         else:
-            self.root.ids.text_field_error.error = False
+            text_field_error.error = False
+
+    def set_list_md_icons(self, text="", search=False):
+        """Builds a list of icons for the screen MDIcons."""
+
+        def add_icon_item(name_icon):
+            self.main_widget.ids.scr_mngr.get_screen("md icons").ids.rv.data.append(
+                {
+                    "viewclass": "MDIconItemForMdIconsList",
+                    "icon": name_icon,
+                    "text": name_icon,
+                    "callback": self.callback_for_menu_items,
+                }
+            )
+
+        self.main_widget.ids.scr_mngr.get_screen("md icons").ids.rv.data = []
+        for name_icon in md_icons.keys():
+            if search:
+                if text in name_icon:
+                    add_icon_item(name_icon)
+            else:
+                add_icon_item(name_icon)
+
+    def set_menu_for_demo_apps(self):
+        if not len(self.menu_for_demo_apps):
+            for name_item in self.demo_apps_list:
+                self.menu_for_demo_apps.append(
+                    {
+                        "viewclass": "OneLineListItem",
+                        "text": name_item,
+                        "on_release": lambda x=name_item: self.show_demo_apps(x),
+                    }
+                )
+
+    def show_demo_apps(self, name_item):
+        self.show_screens_demo(name_item)
+        self.main_widget.ids.scr_mngr.current = name_item.lower()
+        self.instance_menu_demo_apps.dismiss()
 
     def on_pause(self):
         return True
 
     def on_stop(self):
         pass
+
+    def open_settings(self, *args):
+        return False
+
+
+class ContentForAnimCard(BoxLayout):
+    callback = ObjectProperty(lambda x: None)
+
+
+class BaseFanScreen(MDFanScreen):
+    path_to_image = StringProperty()
+
+
+class ScreenOne(BaseFanScreen):
+    pass
+
+
+class ScreenTwo(BaseFanScreen):
+    pass
+
+
+class ScreenTree(BaseFanScreen):
+    pass
+
+
+class ScreenFour(BaseFanScreen):
+    pass
 
 
 class AvatarSampleWidget(ILeftBody, Image):
@@ -1083,5 +1112,21 @@ class IconRightSampleWidget(IRightBodyTouch, MDCheckbox):
     pass
 
 
-if __name__ == '__main__':
+class PopupScreen(MDPopupScreen):
+    pass
+
+
+class ImageTouch(CircularRippleBehavior, ButtonBehavior, Image):
+    pass
+
+
+class ItemForListRefreshLayout(OneLineIconListItem):
+    icon = StringProperty()
+
+
+class MyCard(MDCard):
+    text = StringProperty("")
+
+
+if __name__ == "__main__":
     KitchenSink().run()

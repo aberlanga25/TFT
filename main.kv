@@ -1,33 +1,36 @@
-#:import Toolbar kivymd.toolbar.Toolbar
+#:import MDToolbar kivymd.toolbar.MDToolbar
 #:import MDNavigationDrawer kivymd.navigationdrawer.MDNavigationDrawer
 #:import NavigationLayout kivymd.navigationdrawer.NavigationLayout
-#:import NavigationDrawerDivider kivymd.navigationdrawer.NavigationDrawerDivider
 #:import NavigationDrawerToolbar kivymd.navigationdrawer.NavigationDrawerToolbar
-#:import MDTextField kivymd.textfields.MDTextField
-#:import MDSeparator kivymd.card.MDSeparator
-#:import MDThemePicker kivymd.theme_picker.MDThemePicker
 #:import CardTransition kivy.uix.screenmanager.CardTransition
-#:import SmartTile kivymd.grid.SmartTile
+#:import SmartTile kivymd.imagelists.SmartTile
+#:import MDSeparator kivymd.cards.MDSeparator
+#:import Factory kivy.factory.Factory
 
 
 <MDCustomIconItem>:
     text: root.text
-
     AvatarSampleWidget:
         source: root.icon
+<MySmartTile@SmartTile>
+    mipmap: True
+    box_color: 0,0,0,0
 
-
-nav_layout:
+NavigationLayout:
     id: nav_layout
     MDNavigationDrawer:
         id: nav_drawer
-        drawer_logo: 'logo.png'
+        drawer_logo: 'images/Logo.png'
         NavigationDrawerToolbar:
-            title: 'TFT'
-    MyLayout:
+            title: 'B?'
+    BoxLayout:
         scr_mngr: scr_mngr
         orientation: 'vertical'
-
+        MDToolbar:
+            title: 'TFT'
+            elevation: 10
+            left_action_items: [['menu', lambda x: app.root.toggle_nav_drawer()]]
+            md_bg_color: app.theme_cls.primary_color
 
         ScreenManager:
 
@@ -36,27 +39,18 @@ nav_layout:
             Screen:
                 name: 'tier'
                 id: 'tier'
-                Toolbar:
-                    id: tools
-                    title: "Your Profile"
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.96}
-                    md_bg_color: app.theme_cls.primary_color
-                    background_palette: 'DeepPurple'
-                    background_hue: 'A400'
-                    left_action_items: [['menu', lambda x: app.root.toggle_nav_drawer() ]]
+                ScrollView:
+                    do_scroll_x: True
+                    GridLayout:
+                        id: champsgrid
+                        rows:51
+                        cols:5
+                        height: self.minimum_height
+                        size_hint_y: None
 
             Screen:
                 name: 'champs'
                 id: 'champs'
-
-                Toolbar:
-                    id: tools
-                    title: "Your Profile"
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.96}
-                    md_bg_color: app.theme_cls.primary_color
-                    background_palette: 'DeepPurple'
-                    background_hue: 'A400'
-                    left_action_items: [['menu', lambda x: app.root.toggle_nav_drawer() ]]
                 MDLabel:
                     id: 'Profile_String'
                     font_size: 90
@@ -67,219 +61,234 @@ nav_layout:
             Screen:
                 name: 'items'
                 id: 'items'
+                spacing: dp(20)
+                on_enter:
+                    app.crop_image_for_tile(tile_1, tile_1.size, \
+                    'images/items/1.png')
+                    app.crop_image_for_tile(tile_2, tile_2.size, \
+                    'images/items/2.png')
+                    app.crop_image_for_tile(tile_3, tile_3.size, \
+                    'images/items/3.png')
+                    app.crop_image_for_tile(tile_4, tile_4.size, \
+                    'images/items/4.png')
+                    app.crop_image_for_tile(tile_5, tile_5.size, \
+                    'images/items/5.png')
+                    app.crop_image_for_tile(tile_6, tile_6.size, \
+                    'images/items/6.png')
+                    app.crop_image_for_tile(tile_7, tile_7.size, \
+                    'images/items/7.png')
+                    app.crop_image_for_tile(tile_8, tile_8.size, \
+                    'images/items/8.png')
+                    app.crop_image_for_tile(tile_11, tile_11.size, \
+                    'images/items/11.png')
+                    app.crop_image_for_tile(tile_12, tile_12.size, \
+                    'images/items/12.png')
+                    app.crop_image_for_tile(tile_13, tile_13.size, \
+                    'images/items/13.png')
+                    app.crop_image_for_tile(tile_14, tile_14.size, \
+                    'images/items/14.png')
+                    app.crop_image_for_tile(tile_15, tile_15.size, \
+                    'images/items/15.png')
+                    app.crop_image_for_tile(tile_16, tile_16.size, \
+                    'images/items/16.png')
+                    app.crop_image_for_tile(tile_17, tile_17.size, \
+                    'images/items/17.png')
+                    app.crop_image_for_tile(tile_18, tile_18.size, \
+                    'images/items/18.png')
+                    app.crop_image_for_tile(tile_22, tile_22.size, \
+                    'images/items/22.png')
+                    app.crop_image_for_tile(tile_23, tile_23.size, \
+                    'images/items/23.png')
+                    app.crop_image_for_tile(tile_24, tile_24.size, \
+                    'images/items/24.png')
+                    app.crop_image_for_tile(tile_25, tile_25.size, \
+                    'images/items/25.png')
+                    app.crop_image_for_tile(tile_26, tile_26.size, \
+                    'images/items/26.png')
+                    app.crop_image_for_tile(tile_27, tile_27.size, \
+                    'images/items/27.png')
+                    app.crop_image_for_tile(tile_28, tile_28.size, \
+                    'images/items/28.png')
+                    app.crop_image_for_tile(tile_33, tile_33.size, \
+                    'images/items/33.png')
+                    app.crop_image_for_tile(tile_34, tile_34.size, \
+                    'images/items/34.png')
+                    app.crop_image_for_tile(tile_35, tile_35.size, \
+                    'images/items/35.png')
+                    app.crop_image_for_tile(tile_36, tile_36.size, \
+                    'images/items/36.png')
+                    app.crop_image_for_tile(tile_37, tile_37.size, \
+                    'images/items/37.png')
+                    app.crop_image_for_tile(tile_38, tile_38.size, \
+                    'images/items/38.png')
+                    app.crop_image_for_tile(tile_44, tile_44.size, \
+                    'images/items/44.png')
+                    app.crop_image_for_tile(tile_45, tile_45.size, \
+                    'images/items/45.png')
+                    app.crop_image_for_tile(tile_46, tile_46.size, \
+                    'images/items/46.png')
+                    app.crop_image_for_tile(tile_47, tile_47.size, \
+                    'images/items/47.png')
+                    app.crop_image_for_tile(tile_48, tile_48.size, \
+                    'images/items/48.png')
+                    app.crop_image_for_tile(tile_55, tile_55.size, \
+                    'images/items/55.png')
+                    app.crop_image_for_tile(tile_56, tile_56.size, \
+                    'images/items/56.png')
+                    app.crop_image_for_tile(tile_57, tile_57.size, \
+                    'images/items/57.png')
+                    app.crop_image_for_tile(tile_58, tile_58.size, \
+                    'images/items/58.png')
+                    app.crop_image_for_tile(tile_66, tile_66.size, \
+                    'images/items/66.png')
+                    app.crop_image_for_tile(tile_67, tile_67.size, \
+                    'images/items/67.png')
+                    app.crop_image_for_tile(tile_68, tile_68.size, \
+                    'images/items/68.png')
+                    app.crop_image_for_tile(tile_77, tile_77.size, \
+                    'images/items/77.png')
+                    app.crop_image_for_tile(tile_78, tile_78.size, \
+                    'images/items/78.png')
+                    app.crop_image_for_tile(tile_88, tile_88.size, \
+                    'images/items/88.png')
+
+
+
                 ScrollView:
                     do_scroll_x: False
-                    BoxLayout:
-                        orientation: 'vertical'
-                        size_hint_y: None
-                        height: 2700
-                        Toolbar:
-                            id: tools
-                            title: "Items"
-                            pos_hint: {'center_x': 0.5, 'center_y': 0.96}
-                            md_bg_color: app.theme_cls.primary_color
-                            left_action_items: [['menu', lambda x: app.root.toggle_nav_drawer() ]]
-                        MDLabel:
-                            text: "Base"
-                            font_style: 'Title'
-                            theme_text_color: 'Primary'
-                            pos_hint: {'x': 0.05, 'center_y': 0.75}
-                        GridLayout:
-                            cols:4
-                            row_default_height: (self.width - self.cols*self.spacing[0])/self.cols
-                            row_force_default: True
-                            size_hint_y: None
-                            height: self.minimum_height
-                            padding: dp(20)
-                            spacing: dp(20)
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/1.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/2.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/3.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/4.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/5.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/6.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/7.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/8.png'
-                                box_color: 0,0,0,0
 
+                    GridLayout:
+                        rows:6
+                        cols:1
+                        height: self.minimum_height
+                        size_hint_y: None
                         MDLabel:
-                            text: "Combined"
-                            font_style: 'Title'
+                            text: 'Base'
+                            size_hint_y: None
+                            height: self.texture_size[1]
+                            font_style: 'Subtitle1'
                             theme_text_color: 'Primary'
-                            pos_hint: {'x': 0.05, 'center_y': 0.75}
+                            markup: True
+                            halign: 'center'
+                            text_size: self.width - 20, None
+                        MDSeparator:
                         GridLayout:
-                            id: 'griditems'
                             cols: 4
-                            row_default_height: (self.width - self.cols*self.spacing[0])/self.cols
+                            row_default_height:
+                                (self.width - self.cols*self.spacing[0])/self.cols
                             row_force_default: True
                             size_hint_y: None
                             height: self.minimum_height
-                            padding: dp(20)
+                            padding: dp(20), dp(20)
                             spacing: dp(20)
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/11.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/12.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/13.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/14.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/15.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/16.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/17.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/18.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/22.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/23.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/24.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/25.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/26.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/27.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/28.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/33.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/34.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/35.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/36.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/37.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/38.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/44.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/45.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/46.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/47.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/48.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/55.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/56.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/57.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/58.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/66.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/67.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/68.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/77.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/78.png'
-                                box_color: 0,0,0,0
-                            SmartTile:
-                                mipmap: True
-                                source: 'images/items/88.png'
-                                box_color: 0,0,0,0
+
+                            MySmartTile:
+                                id: tile_2
+                                on_release: app.open_previous_coffee_info()
+                            MySmartTile:
+                                id: tile_3
+                                on_release: Factory.MyPopup().open()
+                            MySmartTile:
+                                id: tile_1
+                            MySmartTile:
+                                id: tile_4
+                            MySmartTile:
+                                id: tile_5
+                            MySmartTile:
+                                id: tile_6
+                            MySmartTile:
+                                id: tile_7
+                            MySmartTile:
+                                id: tile_8
+                        MDLabel:
+                            text: 'Combined'
+                            size_hint_y: None
+                            height: self.texture_size[1]
+                            font_style: 'Subtitle1'
+                            theme_text_color: 'Primary'
+                            markup: True
+                            halign: 'center'
+                            text_size: self.width - 20, None
+                        MDSeparator:
+                        GridLayout:
+                            cols: 4
+                            row_default_height:
+                                (self.width - self.cols*self.spacing[0])/self.cols
+                            row_force_default: True
+                            size_hint_y: None
+                            height: self.minimum_height
+                            padding: dp(20), dp(20)
+                            spacing: dp(20)
+
+                            MySmartTile:
+                                id: tile_11
+                            MySmartTile:
+                                id: tile_12
+                            MySmartTile:
+                                id: tile_13
+                            MySmartTile:
+                                id: tile_14
+                            MySmartTile:
+                                id: tile_15
+                            MySmartTile:
+                                id: tile_16
+                            MySmartTile:
+                                id: tile_17
+                            MySmartTile:
+                                id: tile_18
+                            MySmartTile:
+                                id: tile_22
+                            MySmartTile:
+                                id: tile_23
+                            MySmartTile:
+                                id: tile_24
+                            MySmartTile:
+                                id: tile_25
+                            MySmartTile:
+                                id: tile_26
+                            MySmartTile:
+                                id: tile_27
+                            MySmartTile:
+                                id: tile_28
+                            MySmartTile:
+                                id: tile_33
+                            MySmartTile:
+                                id: tile_34
+                            MySmartTile:
+                                id: tile_35
+                            MySmartTile:
+                                id: tile_36
+                            MySmartTile:
+                                id: tile_37
+                            MySmartTile:
+                                id: tile_38
+                            MySmartTile:
+                                id: tile_44
+                            MySmartTile:
+                                id: tile_45
+                            MySmartTile:
+                                id: tile_46
+                            MySmartTile:
+                                id: tile_47
+                            MySmartTile:
+                                id: tile_48
+                            MySmartTile:
+                                id: tile_55
+                            MySmartTile:
+                                id: tile_56
+                            MySmartTile:
+                                id: tile_57
+                            MySmartTile:
+                                id: tile_58
+                            MySmartTile:
+                                id: tile_66
+                            MySmartTile:
+                                id: tile_67
+                            MySmartTile:
+                                id: tile_68
+                            MySmartTile:
+                                id: tile_77
+                            MySmartTile:
+                                id: tile_78
+                            MySmartTile:
+                                id: tile_88
