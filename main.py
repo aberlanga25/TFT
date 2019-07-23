@@ -5,23 +5,26 @@ from kivy.lang import Builder
 from kivy.properties import  StringProperty
 from kivy.uix.image import Image
 
-
 from kivymd.theming import ThemeManager
 from kivymd.list import OneLineAvatarListItem, ILeftBody
 from kivymd.utils.cropimage import crop_image
 from kivymd.label import MDLabel
+from kivymd.imagelists import SmartTile
 
-from champs import (listCosts, listOrigins)
+from champs import (listCosts, listOrigins, listNames)
+from demo_apps.basedialog import BaseDialogForDemo
 
 class MDCustomIconItem(OneLineAvatarListItem):
     icon = StringProperty('')
     text = StringProperty()
-
     def _set_active(self, active, list):
         pass
 class AvatarSampleWidget(ILeftBody, Image):
     pass
-
+class MySmartTile(SmartTile):
+    pass
+class PreviousDialogCoffee(BaseDialogForDemo):
+    pass
 
 class MyApp(App):
     theme_cls = ThemeManager()
@@ -50,36 +53,28 @@ class MyApp(App):
             crop_image(size, path_to_origin_image, path_to_crop_image)
         instance.source = path_to_crop_image
 
+
     def set_champs(self):
         costs = listCosts()
         orig = listOrigins()
-        self.main_widget.ids.champsgrid.add_widget(
-            MDLabel(text="", size_hint_y=None, font_style="H6", theme_text_color='Primary')
-        )
-        self.main_widget.ids.champsgrid.add_widget(
-            MDLabel(text="Name", size_hint_y=None, font_style="H6",theme_text_color='Primary')
-        )
-        self.main_widget.ids.champsgrid.add_widget(
-            MDLabel(text="Cost", size_hint_y=None, font_style="H6", theme_text_color='Primary')
-        )
-        self.main_widget.ids.champsgrid.add_widget(
-            MDLabel(text="Origins", size_hint_y=None, font_style="H6", theme_text_color='Primary')
-        )
-        self.main_widget.ids.champsgrid.add_widget(
-            MDLabel(text="Classes", size_hint_y=None, font_style="H6", theme_text_color='Primary')
-        )
-        for x in range(1,51):
+        names = listNames()
+
+        for x in range(1,52):
             self.main_widget.ids.champsgrid.add_widget(
-                Image(source='images/champs/%d.png' %x)
+                MySmartTile(source='images/champs/%d.png' %x,  size_hint_y=None, size_hint_x=0.3)
             )
             self.main_widget.ids.champsgrid.add_widget(
-                MDLabel(text="%d" %x, size_hint_y=None, font_style="Subtitle1", theme_text_color='Primary'))
+                MDLabel(text=str(names[x-1]), size_hint_y=None, font_style="Subtitle2", theme_text_color='Primary'))
             self.main_widget.ids.champsgrid.add_widget(
-                MDLabel(text=str(costs[x]), size_hint_y=None, font_style="Subtitle1", theme_text_color='Primary'))
+                MDLabel(text=str(costs[x-1]), size_hint_y=None, font_style="Subtitle2",halign='center', theme_text_color='Primary'))
             self.main_widget.ids.champsgrid.add_widget(
-                MDLabel(text=str(orig[x]), size_hint_y=None, font_style="Subtitle1", theme_text_color='Primary'))
+                MDLabel(text=str(orig[x-1]), size_hint_y=None,  font_style="Subtitle2", theme_text_color='Primary'))
             self.main_widget.ids.champsgrid.add_widget(
-                MDLabel(text="%d" % x, size_hint_y=None, font_style="Subtitle1", theme_text_color='Primary'))
+                MDLabel(text="%d" % x, size_hint_y=None, font_style="Subtitle2", theme_text_color='Primary'))
+
+    def createSmart(self):
+        smart = MDLabel(text="hi", font_style="H6")
+        return smart
 
     def on_start(self):
         self.main_widget.ids.nav_drawer.add_widget(
@@ -98,5 +93,6 @@ class MyApp(App):
                 icon='images/menu/tier.png',
                 on_release=lambda x: self.callbackMenu('tier')))
         self.set_champs()
+        #self.set_items()
 
 MyApp().run()

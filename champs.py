@@ -11,3 +11,12 @@ def listOrigins():
                'Wild', 'Yordle', 'Pirate', 'Void', 'Wild', 'Glacial', 'Ninja', 'Dragon', 'Imperial, Demon', 'Yordle',
                'Pirate', 'Demon', 'Noble', 'Yordle', 'Glacial', 'Wild', 'Exile', 'Ninja']
     return origins
+
+def listNames():
+    names = ['Aatrox', 'Ahri', 'Akali', 'Anivia', 'Ashe', 'Aurelion Sol', 'Blitzcrank', 'Brand', 'Braum', "Cho'Gath",
+             'Darius', 'Draven', 'Elise', 'Evelynn', 'Fiora', 'Gangplank', 'Garen', 'Gnar', 'Graves', 'Karthus',
+             'Kassadin', 'Katarina', 'Kayle', 'Kennen', "Kha'Zix", 'Kindred', 'Leona', 'Lissandra', 'Lucian', 'Lulu',
+             'Miss Fortune', 'Mordekaiser', 'Morgana', 'Nidalee', 'Poppy', 'Pyke', "Rek'Sai", 'Renga', 'Sejuani', 'Shen',
+             'Shyvana', 'Swain', 'Tristana', 'Twisted Fate', 'Varus', 'Vayne', 'Veigar', 'Volibear', 'Warwick', 'Yasuo',
+             'Zed']
+    return names

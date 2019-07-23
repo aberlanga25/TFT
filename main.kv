@@ -16,6 +16,631 @@
     mipmap: True
     box_color: 0,0,0,0
 
+<LabelPop@MDLabel>
+    size_hint_y: None
+    height: self.texture_size[1]
+    color: 1, 1, 1, 1
+    halign: 'center'
+    valign: 'middle'
+<Plus@MDLabel>
+    text: "+"
+    halign: "center"
+    color: 1, 1, 1, 1
+<Exit@MDFlatButton>
+    text: 'Ok'
+    theme_text_color: 'Custom'
+    text_color: [1, 1, 1, 1]
+<NeedRod@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(100)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Needlessly Large Rod"
+        LabelPop:
+            text: "+20% Spell Power"
+        Exit:
+            on_release: root.dismiss()
+<Bow@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(100)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Recurve Bow"
+        LabelPop:
+            text: "+20% Attack Speed"
+        Exit:
+            on_release: root.dismiss()
+<Vest@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(100)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Chain Vest"
+        LabelPop:
+            text: "+20 Armor"
+        Exit:
+            on_release: root.dismiss()
+<Tear@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(100)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Tear of the Goddess"
+        LabelPop:
+            text: "+20 Mana"
+        Exit:
+            on_release: root.dismiss()
+<Cloak@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(100)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Negatron Cloak"
+        LabelPop:
+            text: "+20 Magic Resist"
+        Exit:
+            on_release: root.dismiss()
+<Sword@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(100)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "B. F. Sword"
+        LabelPop:
+            text: "+20 Attack Damage"
+        Exit:
+            on_release: root.dismiss()
+<Belt@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(100)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Giant's Belt"
+        LabelPop:
+            text: "+200 Health"
+        Exit:
+            on_release: root.dismiss()
+<Spat@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(100)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Spatula"
+            font_style: 'H6'
+        LabelPop:
+            text: "It must do something..."
+        Exit:
+            on_release: root.dismiss()
+<Edge@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Infinity Edge"
+            font_style: 'H6'
+        LabelPop:
+            text: "Critical Strikes deal +100% damage"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/1.png"
+            Plus:
+            Image:
+                source:"images/items/1.png"
+        Exit:
+            on_release: root.dismiss()
+<Divine@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Sword of the Divine"
+            font_style: 'H6'
+        LabelPop:
+            text: "Each second, the wearer has a 5% chance to gain 100% Critical Strike"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/1.png"
+            Plus:
+            Image:
+                source:"images/items/2.png"
+        Exit:
+            on_release: root.dismiss()
+<GunBld@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Hextech Gunblade"
+            font_style: 'H6'
+        LabelPop:
+            text: "Heal for 33% of all damage dealt"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/1.png"
+            Plus:
+            Image:
+                source:"images/items/3.png"
+        Exit:
+            on_release: root.dismiss()
+<Spear@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(215)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Spear of Shojin"
+            font_style: 'H6'
+        LabelPop:
+            text: "After casting, wearer gains 15% of it's max Mana per attack"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/1.png"
+            Plus:
+            Image:
+                source:"images/items/4.png"
+        Exit:
+            on_release: root.dismiss()
+<Angel@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Guardian Angel"
+            font_style: 'H6'
+        LabelPop:
+            text: "Wearer revives with 1000 Health"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/1.png"
+            Plus:
+            Image:
+                source:"images/items/5.png"
+        Exit:
+            on_release: root.dismiss()
+<Blood@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Bloodthirster"
+            font_style: 'H6'
+        LabelPop:
+            text: "Attacks heal for 50% of damage"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/1.png"
+            Plus:
+            Image:
+                source:"images/items/6.png"
+        Exit:
+            on_release: root.dismiss()
+<Zeke@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(250)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Zeke's Herald"
+            font_style: 'H6'
+        LabelPop:
+            text: "At the start of combat, allies within 2 hexes in the sames row gain +15% Attack Speed for the rest of combat"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/1.png"
+            Plus:
+            Image:
+                source:"images/items/7.png"
+        Exit:
+            on_release: root.dismiss()
+<Yom@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Youmuu's Ghostblade"
+            font_style: 'H6'
+        LabelPop:
+            text: "Extra AD +20, Wearer is also an Assassin"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/1.png"
+            Plus:
+            Image:
+                source:"images/items/8.png"
+        Exit:
+            on_release: root.dismiss()
+<Cannon@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Rapid Firecannon"
+            font_style: 'H6'
+        LabelPop:
+            text: "Wearer's attacks cannot be dodged. Attack Range is doubled"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/2.png"
+            Plus:
+            Image:
+                source:"images/items/2.png"
+        Exit:
+            on_release: root.dismiss()
+<Guin@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Guinsoo's Rageblade"
+            font_style: 'H6'
+        LabelPop:
+            text: "Attacks grant 4% Attack Speed. Stacks infinitely"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/2.png"
+            Plus:
+            Image:
+                source:"images/items/3.png"
+        Exit:
+            on_release: root.dismiss()
+<Statikk@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Statikk Shiv"
+            font_style: 'H6'
+        LabelPop:
+            text: "Every 3rd attack deals 100 splash magical damage"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/2.png"
+            Plus:
+            Image:
+                source:"images/items/4.png"
+        Exit:
+            on_release: root.dismiss()
+<Phant@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Phantom Dancer"
+            font_style: 'H6'
+        LabelPop:
+            text: "Wearer dodges all Critical Strikes"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/2.png"
+            Plus:
+            Image:
+                source:"images/items/5.png"
+        Exit:
+            on_release: root.dismiss()
+<Cursed@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(215)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Cursed Blade"
+            font_style: 'H6'
+        LabelPop:
+            text: "Attacks on-hit have a low chance to reduce enemy's star level by 1 for the rest of combat"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/2.png"
+            Plus:
+            Image:
+                source:"images/items/6.png"
+        Exit:
+            on_release: root.dismiss()
+<Hydra@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Titanic Hydra"
+            font_style: 'H6'
+        LabelPop:
+            text: "Attacks deal 10% of the wearer's max Health as splash damage"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/2.png"
+            Plus:
+            Image:
+                source:"images/items/7.png"
+        Exit:
+            on_release: root.dismiss()
+<Ruined@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Blade of the Ruined King"
+            font_style: 'H6'
+        LabelPop:
+            text: "Extra AS +20. Wearer is also a Blademaster"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/2.png"
+            Plus:
+            Image:
+                source:"images/items/8.png"
+        Exit:
+            on_release: root.dismiss()
+<Rab@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Rabadon's Deathcap"
+            font_style: 'H6'
+        LabelPop:
+            text: "Wearer's Spell Power stat is amplified by 50%"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/3.png"
+            Plus:
+            Image:
+                source:"images/items/3.png"
+        Exit:
+            on_release: root.dismiss()
+<Echo@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Luden's Echo"
+            font_style: 'H6'
+        LabelPop:
+            text: "Spells deal 200 splash damage on hit"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/3.png"
+            Plus:
+            Image:
+                source:"images/items/4.png"
+        Exit:
+            on_release: root.dismiss()
+<Solari@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(250)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Locket of the Iron Solari"
+            font_style: 'H6'
+        LabelPop:
+            text: "At the start of combat, allies within 2 hexes in the same row gain a shield that blocks 300 damage"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/3.png"
+            Plus:
+            Image:
+                source:"images/items/5.png"
+        Exit:
+            on_release: root.dismiss()
+<Spark@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Ionic Spark"
+            font_style: 'H6'
+        LabelPop:
+            text: "Whenever an enemy casts a spell, they take 200 damage"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/3.png"
+            Plus:
+            Image:
+                source:"images/items/6.png"
+        Exit:
+            on_release: root.dismiss()
+<Morello@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(230)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Morellonomicon"
+            font_style: 'H6'
+        LabelPop:
+            text: "Spells deal burn damage equal to 15% of the enemy's maximum heatl over 5s and prevent healing"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/3.png"
+            Plus:
+            Image:
+                source:"images/items/7.png"
+        Exit:
+            on_release: root.dismiss()
+<Yuumi@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Yuumi"
+            font_style: 'H6'
+        LabelPop:
+            text: "Extra AP +20. Wearer is also a Sorcerer"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/3.png"
+            Plus:
+            Image:
+                source:"images/items/8.png"
+        Exit:
+            on_release: root.dismiss()
+
+
 NavigationLayout:
     id: nav_layout
     MDNavigationDrawer:
@@ -39,26 +664,65 @@ NavigationLayout:
             Screen:
                 name: 'tier'
                 id: 'tier'
+
+
+            Screen:
+                name: 'champs'
+                id: 'champs'
                 ScrollView:
                     do_scroll_x: True
                     GridLayout:
                         id: champsgrid
                         rows:52
                         cols:5
+                        #width: dp(700)
                         height: self.minimum_height
                         size_hint_y: None
+                        #size_hint_x: None
                         padding: dp(20), dp(20)
-                        spacing: dp(20)
-
-            Screen:
-                name: 'champs'
-                id: 'champs'
-                MDLabel:
-                    id: 'Profile_String'
-                    font_size: 90
-                    text: "Brian Zheng"
-                    halign: 'center'
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.85}
+                        spacing: dp(10)
+                        MDLabel:
+                            text:""
+                            size_hint_x: 0.3
+                        MDLabel:
+                            text: "Name"
+                            size_hint_y: None
+                            height: self.texture_size[1]
+                            font_style: 'Subtitle2'
+                            theme_text_color: 'Primary'
+                            markup: True
+                            halign: 'center'
+                            size_hint_x: 0.2
+                            text_size: self.width - 20, None
+                        MDLabel:
+                            text: "Cost"
+                            size_hint_y: None
+                            height: self.texture_size[1]
+                            font_style: 'Subtitle2'
+                            theme_text_color: 'Primary'
+                            markup: True
+                            halign: 'center'
+                            size_hint_x: 0.2
+                            text_size: self.width - 20, None
+                        MDLabel:
+                            text: "Origins"
+                            size_hint_y: None
+                            height: self.texture_size[1]
+                            font_style: 'Subtitle2'
+                            theme_text_color: 'Primary'
+                            markup: True
+                            size_hint_x: 0.3
+                            text_size: self.width - 20, None
+                        MDLabel:
+                            text: "Classes"
+                            size_hint_y: None
+                            height: self.texture_size[1]
+                            font_style: 'Subtitle2'
+                            theme_text_color: 'Primary'
+                            markup: True
+                            halign: 'center'
+                            size_hint_x: 0.3
+                            text_size: self.width - 20, None
 
             Screen:
                 name: 'items'
@@ -186,21 +850,28 @@ NavigationLayout:
 
                             MySmartTile:
                                 id: tile_2
+                                on_release: Factory.Bow().open()
                             MySmartTile:
                                 id: tile_3
-                                on_release: Factory.MyPopup().open()
+                                on_release: Factory.NeedRod().open()
                             MySmartTile:
                                 id: tile_1
+                                on_release: Factory.Sword().open()
                             MySmartTile:
                                 id: tile_4
+                                on_release: Factory.Tear().open()
                             MySmartTile:
                                 id: tile_5
+                                on_release: Factory.Vest().open()
                             MySmartTile:
                                 id: tile_6
+                                on_release: Factory.Cloak().open()
                             MySmartTile:
                                 id: tile_7
+                                on_release: Factory.Belt().open()
                             MySmartTile:
                                 id: tile_8
+                                on_release: Factory.Spat().open()
                         MDLabel:
                             text: 'Combined'
                             size_hint_y: None
@@ -223,46 +894,67 @@ NavigationLayout:
 
                             MySmartTile:
                                 id: tile_11
+                                on_release: Factory.Edge().open()
                             MySmartTile:
                                 id: tile_12
+                                on_release: Factory.Divine().open()
                             MySmartTile:
                                 id: tile_13
+                                on_release: Factory.GunBld().open()
                             MySmartTile:
                                 id: tile_14
+                                on_release: Factory.Spear().open()
                             MySmartTile:
                                 id: tile_15
+                                on_release: Factory.Angel().open()
                             MySmartTile:
                                 id: tile_16
+                                on_release: Factory.Blood().open()
                             MySmartTile:
                                 id: tile_17
+                                on_release: Factory.Zeke().open()
                             MySmartTile:
                                 id: tile_18
+                                on_release: Factory.Yom().open()
                             MySmartTile:
                                 id: tile_22
+                                on_release: Factory.Rapid().open()
                             MySmartTile:
                                 id: tile_23
+                                on_release: Factory.Guin().open()
                             MySmartTile:
                                 id: tile_24
+                                on_release: Factory.Statikk().open()
                             MySmartTile:
                                 id: tile_25
+                                on_release: Factory.Phant().open()
                             MySmartTile:
                                 id: tile_26
+                                on_release: Factory.Cursed().open()
                             MySmartTile:
                                 id: tile_27
+                                on_release: Factory.Hydra().open()
                             MySmartTile:
                                 id: tile_28
+                                on_release: Factory.Ruined().open()
                             MySmartTile:
                                 id: tile_33
+                                on_release: Factory.Rab().open()
                             MySmartTile:
                                 id: tile_34
+                                on_release: Factory.Echo().open()
                             MySmartTile:
                                 id: tile_35
+                                on_release: Factory.Solari().open()
                             MySmartTile:
                                 id: tile_36
+                                on_release: Factory.Spark().open()
                             MySmartTile:
                                 id: tile_37
+                                on_release: Factory.Morello().open()
                             MySmartTile:
                                 id: tile_38
+                                on_release: Factory.Yuumi().open()
                             MySmartTile:
                                 id: tile_44
                             MySmartTile:
