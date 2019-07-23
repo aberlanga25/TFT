@@ -43,10 +43,12 @@ NavigationLayout:
                     do_scroll_x: True
                     GridLayout:
                         id: champsgrid
-                        rows:51
+                        rows:52
                         cols:5
                         height: self.minimum_height
                         size_hint_y: None
+                        padding: dp(20), dp(20)
+                        spacing: dp(20)
 
             Screen:
                 name: 'champs'
@@ -184,7 +186,6 @@ NavigationLayout:
 
                             MySmartTile:
                                 id: tile_2
-                                on_release: app.open_previous_coffee_info()
                             MySmartTile:
                                 id: tile_3
                                 on_release: Factory.MyPopup().open()

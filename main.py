@@ -9,7 +9,9 @@ from kivy.uix.image import Image
 from kivymd.theming import ThemeManager
 from kivymd.list import OneLineAvatarListItem, ILeftBody
 from kivymd.utils.cropimage import crop_image
+from kivymd.label import MDLabel
 
+from champs import (listCosts, listOrigins)
 
 class MDCustomIconItem(OneLineAvatarListItem):
     icon = StringProperty('')
@@ -19,7 +21,6 @@ class MDCustomIconItem(OneLineAvatarListItem):
         pass
 class AvatarSampleWidget(ILeftBody, Image):
     pass
-
 
 
 class MyApp(App):
@@ -50,10 +51,36 @@ class MyApp(App):
         instance.source = path_to_crop_image
 
     def set_champs(self):
-        for x in range(1..51):
+        costs = listCosts()
+        orig = listOrigins()
+        self.main_widget.ids.champsgrid.add_widget(
+            MDLabel(text="", size_hint_y=None, font_style="H6", theme_text_color='Primary')
+        )
+        self.main_widget.ids.champsgrid.add_widget(
+            MDLabel(text="Name", size_hint_y=None, font_style="H6",theme_text_color='Primary')
+        )
+        self.main_widget.ids.champsgrid.add_widget(
+            MDLabel(text="Cost", size_hint_y=None, font_style="H6", theme_text_color='Primary')
+        )
+        self.main_widget.ids.champsgrid.add_widget(
+            MDLabel(text="Origins", size_hint_y=None, font_style="H6", theme_text_color='Primary')
+        )
+        self.main_widget.ids.champsgrid.add_widget(
+            MDLabel(text="Classes", size_hint_y=None, font_style="H6", theme_text_color='Primary')
+        )
+        for x in range(1,51):
             self.main_widget.ids.champsgrid.add_widget(
-                Image(source='images/champs/%d.png' % x)
+                Image(source='images/champs/%d.png' %x)
             )
+            self.main_widget.ids.champsgrid.add_widget(
+                MDLabel(text="%d" %x, size_hint_y=None, font_style="Subtitle1", theme_text_color='Primary'))
+            self.main_widget.ids.champsgrid.add_widget(
+                MDLabel(text=str(costs[x]), size_hint_y=None, font_style="Subtitle1", theme_text_color='Primary'))
+            self.main_widget.ids.champsgrid.add_widget(
+                MDLabel(text=str(orig[x]), size_hint_y=None, font_style="Subtitle1", theme_text_color='Primary'))
+            self.main_widget.ids.champsgrid.add_widget(
+                MDLabel(text="%d" % x, size_hint_y=None, font_style="Subtitle1", theme_text_color='Primary'))
+
     def on_start(self):
         self.main_widget.ids.nav_drawer.add_widget(
             MDCustomIconItem(
