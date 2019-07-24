@@ -12,7 +12,7 @@
     text: root.text
     AvatarSampleWidget:
         source: root.icon
-<MySmartTile@SmartTile>
+<MySmartTile>
     mipmap: True
     box_color: 0,0,0,0
 
@@ -639,7 +639,382 @@
                 source:"images/items/8.png"
         Exit:
             on_release: root.dismiss()
+<Seraph@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Seraph's Embrace"
+            font_style: 'H6'
+        LabelPop:
+            text: "Wearer regains 20 Mana after spellcast"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/4.png"
+            Plus:
+            Image:
+                source:"images/items/4.png"
+        Exit:
+            on_release: root.dismiss()
+<Heart@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Frozen Heart"
+            font_style: 'H6'
+        LabelPop:
+            text: "Adjacent enemies lose 25% Attack Speed"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/4.png"
+            Plus:
+            Image:
+                source:"images/items/5.png"
+        Exit:
+            on_release: root.dismiss()
+<Hush@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(220)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Hush"
+            font_style: 'H6'
+        LabelPop:
+            text: "Attacks on-hit have a high chance to silence, preventing the enemy from casting spells for 5s"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/4.png"
+            Plus:
+            Image:
+                source:"images/items/6.png"
+        Exit:
+            on_release: root.dismiss()
+<Redemption@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Redemption"
+            font_style: 'H6'
+        LabelPop:
+            text: "On corssing below 25% Health, heal all nearby allies for 1000 Health"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/4.png"
+            Plus:
+            Image:
+                source:"images/items/7.png"
+        Exit:
+            on_release: root.dismiss()
+<Darkin@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Darkin"
+            font_style: 'H6'
+        LabelPop:
+            text: "Extra Mana +20. Wearer is also a Demon"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/4.png"
+            Plus:
+            Image:
+                source:"images/items/8.png"
+        Exit:
+            on_release: root.dismiss()
+<Thornmail@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Thornmail"
+            font_style: 'H6'
+        LabelPop:
+            text: "Reflects 100% of damage mitigated from attacks"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/5.png"
+            Plus:
+            Image:
+                source:"images/items/5.png"
+        Exit:
+            on_release: root.dismiss()
+<Breaker@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Sword Breaker"
+            font_style: 'H6'
+        LabelPop:
+            text: "Attacks have a chance to disarm for 4s"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/5.png"
+            Plus:
+            Image:
+                source:"images/items/6.png"
+        Exit:
+            on_release: root.dismiss()
+<Red@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(215)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Red Buff"
+            font_style: 'H6'
+        LabelPop:
+            text: "Attacks deal 13% of the enemy's maximum Health as burn damage over 5s and prevent healing"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/5.png"
+            Plus:
+            Image:
+                source:"images/items/7.png"
+        Exit:
+            on_release: root.dismiss()
+<Knight@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Knight Vow"
+            font_style: 'H6'
+        LabelPop:
+            text: "Extra Armor +20. Wearer is also a Knight"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/5.png"
+            Plus:
+            Image:
+                source:"images/items/8.png"
+        Exit:
+            on_release: root.dismiss()
+<Claw@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Dragon's Claw"
+            font_style: 'H6'
+        LabelPop:
+            text: "Gain 83% resistance to magic damage"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/6.png"
+            Plus:
+            Image:
+                source:"images/items/6.png"
+        Exit:
+            on_release: root.dismiss()
+<Zephyr@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Zephyr"
+            font_style: 'H6'
+        LabelPop:
+            text: "On start of combat, banish an enemy for 5s"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/6.png"
+            Plus:
+            Image:
+                source:"images/items/7.png"
+        Exit:
+            on_release: root.dismiss()
+<Hurricane@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(205)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Runaan's Hurricane"
+            font_style: 'H6'
+        LabelPop:
+            text: "Extra MR +20. Summon a spirit who mirrors your attacks, dealing 25% Damage"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/6.png"
+            Plus:
+            Image:
+                source:"images/items/8.png"
+        Exit:
+            on_release: root.dismiss()
+<Warmog@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Warmog's Armor"
+            font_style: 'H6'
+        LabelPop:
+            text: "Wearer regenerates 6% max Health per second"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/7.png"
+            Plus:
+            Image:
+                source:"images/items/7.png"
+        Exit:
+            on_release: root.dismiss()
+<Frozen@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Frozen Mallet"
+            font_style: 'H6'
+        LabelPop:
+            text: "Extra Health +200. Wearer is also a Glacial"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/7.png"
+            Plus:
+            Image:
+                source:"images/items/8.png"
+        Exit:
+            on_release: root.dismiss()
+<Nature@PreviousDialogCoffee>
+    auto_dismiss: False
+    size_hint: None, None
+    size: dp(200), dp(200)
+    BoxLayout:
+        spacing: dp(10)
+        orientation: 'vertical'
+        LabelPop:
+            text: "Force of Nature"
+            font_style: 'H6'
+        LabelPop:
+            text: "Gain +1 team size"
+        MDLabel:
+            text: "Created by:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:3
+            Image:
+                source:"images/items/8.png"
+            Plus:
+            Image:
+                source:"images/items/8.png"
+        Exit:
+            on_release: root.dismiss()
 
+
+<TierLabel@MDLabel>
+    size_hint_y: None
+    height: self.texture_size[1]
+    font_style: 'H6'
+    theme_text_color: 'Primary'
+    markup: True
+    halign: 'left'
+    text_size: self.width - 20, None
+<GridTier@GridLayout>
+    row_force_default: True
+    size_hint_y: None
+    height: self.minimum_height
+    padding: dp(20), dp(20)
+    spacing: dp(20)
 
 NavigationLayout:
     id: nav_layout
@@ -664,6 +1039,58 @@ NavigationLayout:
             Screen:
                 name: 'tier'
                 id: 'tier'
+                ScrollView:
+                    do_scroll_x: True
+                    GridLayout:
+                        id: tiergrid
+                        rows:15
+                        cols:1
+                        #width: dp(700)
+                        height: self.minimum_height
+                        size_hint_y: None
+                        #size_hint_x: None
+                        padding: dp(20), dp(20)
+                        spacing: dp(10)
+                        TierLabel:
+                            text: 'Tier 1'
+                        MDSeparator:
+                        GridTier:
+                            cols: 5
+                            id: tier1
+                            row_default_height:
+                                (self.width - self.cols*self.spacing[0])/self.cols
+                        TierLabel:
+                            text: 'Tier 2'
+                        MDSeparator:
+                        GridTier:
+                            cols: 5
+                            id: tier2
+                            row_default_height:
+                                (self.width - self.cols*self.spacing[0])/self.cols
+                        TierLabel:
+                            text: 'Tier 3'
+                        MDSeparator:
+                        GridTier:
+                            cols: 5
+                            id: tier3
+                            row_default_height:
+                                (self.width - self.cols*self.spacing[0])/self.cols
+                        TierLabel:
+                            text: 'Tier 4'
+                        MDSeparator:
+                        GridTier:
+                            cols: 5
+                            id: tier4
+                            row_default_height:
+                                (self.width - self.cols*self.spacing[0])/self.cols
+                        TierLabel:
+                            text: 'Tier 5'
+                        MDSeparator:
+                        GridTier:
+                            cols: 5
+                            id: tier5
+                            row_default_height:
+                                (self.width - self.cols*self.spacing[0])/self.cols
 
 
             Screen:
@@ -674,16 +1101,13 @@ NavigationLayout:
                     GridLayout:
                         id: champsgrid
                         rows:52
-                        cols:5
+                        cols:4
                         #width: dp(700)
                         height: self.minimum_height
                         size_hint_y: None
                         #size_hint_x: None
                         padding: dp(20), dp(20)
                         spacing: dp(10)
-                        MDLabel:
-                            text:""
-                            size_hint_x: 0.3
                         MDLabel:
                             text: "Name"
                             size_hint_y: None
@@ -692,7 +1116,7 @@ NavigationLayout:
                             theme_text_color: 'Primary'
                             markup: True
                             halign: 'center'
-                            size_hint_x: 0.2
+                            size_hint_x: 0.4
                             text_size: self.width - 20, None
                         MDLabel:
                             text: "Cost"
@@ -825,18 +1249,11 @@ NavigationLayout:
 
                     GridLayout:
                         rows:6
-                        cols:1
                         height: self.minimum_height
                         size_hint_y: None
-                        MDLabel:
+                        spacing: dp(20)
+                        TierLabel:
                             text: 'Base'
-                            size_hint_y: None
-                            height: self.texture_size[1]
-                            font_style: 'Subtitle1'
-                            theme_text_color: 'Primary'
-                            markup: True
-                            halign: 'center'
-                            text_size: self.width - 20, None
                         MDSeparator:
                         GridLayout:
                             cols: 4
@@ -872,17 +1289,11 @@ NavigationLayout:
                             MySmartTile:
                                 id: tile_8
                                 on_release: Factory.Spat().open()
-                        MDLabel:
+                        TierLabel:
                             text: 'Combined'
-                            size_hint_y: None
-                            height: self.texture_size[1]
-                            font_style: 'Subtitle1'
-                            theme_text_color: 'Primary'
-                            markup: True
-                            halign: 'center'
-                            text_size: self.width - 20, None
                         MDSeparator:
                         GridLayout:
+                            id: itemsgrid
                             cols: 4
                             row_default_height:
                                 (self.width - self.cols*self.spacing[0])/self.cols
@@ -957,31 +1368,46 @@ NavigationLayout:
                                 on_release: Factory.Yuumi().open()
                             MySmartTile:
                                 id: tile_44
+                                on_release: Factory.Seraph().open()
                             MySmartTile:
                                 id: tile_45
+                                on_release: Factory.Heart().open()
                             MySmartTile:
                                 id: tile_46
+                                on_release: Factory.Hush().open()
                             MySmartTile:
                                 id: tile_47
+                                on_release: Factory.Redemption().open()
                             MySmartTile:
                                 id: tile_48
+                                on_release: Factory.Darkin().open()
                             MySmartTile:
                                 id: tile_55
+                                on_release: Factory.Thornmail().open()
                             MySmartTile:
                                 id: tile_56
+                                on_release: Factory.Breaker().open()
                             MySmartTile:
                                 id: tile_57
+                                on_release: Factory.Red().open()
                             MySmartTile:
                                 id: tile_58
+                                on_release: Factory.Knight().open()
                             MySmartTile:
                                 id: tile_66
+                                on_release: Factory.Dragon().open()
                             MySmartTile:
                                 id: tile_67
+                                on_release: Factory.Zephyr().open()
                             MySmartTile:
                                 id: tile_68
+                                on_release: Factory.Hurricane().open()
                             MySmartTile:
                                 id: tile_77
+                                on_release: Factory.Warmog().open()
                             MySmartTile:
                                 id: tile_78
+                                on_release: Factory.Frozen().open()
                             MySmartTile:
                                 id: tile_88
+                                on_release: Factory.Nature().open()
