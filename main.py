@@ -11,7 +11,7 @@ from kivymd.theming import ThemeManager
 from kivymd.list import OneLineAvatarListItem, ILeftBody
 from kivymd.utils.cropimage import crop_image
 from kivymd.label import MDLabel
-from kivymd.imagelists import SmartTile
+from kivymd.imagelists import SmartTile, SmartTileWithLabel
 
 from champs import *
 from basedialog import BaseDialogForDemo
@@ -27,6 +27,8 @@ class MySmartTile(SmartTile):
     pass
 class PreviousDialogCoffee(BaseDialogForDemo):
     pass
+class NeedRod(PreviousDialogCoffee):
+    pass
 
 class MyApp(App):
     theme_cls = ThemeManager()
@@ -39,9 +41,6 @@ class MyApp(App):
     def build(self):
         self.main_widget = Builder.load_file('main.kv')
         return self.main_widget
-
-    def callback(self, instance, value):
-        print("Pressed item menu %d" % value)
 
     def callbackMenu(self, y):
         self.main_widget.ids.scr_mngr.transition.direction = 'right'
@@ -57,12 +56,8 @@ class MyApp(App):
 
     def tierChamp(self, x):
         names = listNames()
-        champLay = GridLayout(rows=2,)
-        champLay.add_widget(MySmartTile(source='images/champs/%d.png' % x, size_hint_y=None))
-        champLay.add_widget(
-            MDLabel(text=str(names[x - 1]), size_hint_y=None, font_style="Subtitle2", theme_text_color='Primary',
-                    halign='center', valign='top', size=(dp(10),dp(10))))
-        return champLay
+        return SmartTileWithLabel(source='images/champs/%d.png' % x,  text=str(names[x-1]),
+                                  font_style= 'Subtitle1', mipmap=True)
     def set_tiers(self):
         t1 = tier1()
         t2 = tier2()
@@ -88,21 +83,23 @@ class MyApp(App):
         names = listNames()
         clas = listClasses()
         for x in range(1,52):
-            champLay = GridLayout(cols=2)
-            champLay.add_widget(MySmartTile(source='images/champs/%d.png' %x,  size_hint_y=None))
-            champLay.add_widget(MDLabel(text=str(names[x-1]), size_hint_y=None, font_style="Subtitle2", theme_text_color='Primary', halign='center'))
+            champLay = GridLayout(cols=2,size_hint_x= 0.5)
+            champLay.add_widget(MySmartTile(source='images/champs/%d.png' %x,  size_hint_y=None, size_hint_x=None, on_release=self.callbackPop() ))
+            champLay.add_widget(MDLabel(text=str(names[x-1]), size_hint_y=None, font_style="Body1", theme_text_color='Primary', halign='center'))
             self.main_widget.ids.champsgrid.add_widget(champLay)
             self.main_widget.ids.champsgrid.add_widget(
-                MDLabel(text=str(costs[x-1]), size_hint_y=None, font_style="Subtitle2",halign='center', theme_text_color='Primary'))
+                MDLabel(text=str(costs[x-1]), size_hint_y=None, font_style="Body1", halign='center', theme_text_color='Primary', size_hint_x= 0.1))
             self.main_widget.ids.champsgrid.add_widget(
-                MDLabel(text=str(orig[x-1]), size_hint_y=None,  font_style="Subtitle2", halign='center', theme_text_color='Primary'))
+                MDLabel(text=str(orig[x-1]), size_hint_y=None,  font_style="Body1", halign='center', theme_text_color='Primary', size_hint_x= 0.3))
             self.main_widget.ids.champsgrid.add_widget(
-                MDLabel(text=str(clas[x-1]), size_hint_y=None, font_style="Subtitle2", halign='center', theme_text_color='Primary'))
+                MDLabel(text=str(clas[x-1]), size_hint_y=None, font_style="Body1", halign='center', theme_text_color='Primary', size_hint_x= 0.4))
 
     def createSmart(self):
         smart = MDLabel(text="hi", font_style="H6")
         return smart
 
+    def callbackPop(self):
+        NeedRod().open()
     def on_start(self):
         self.main_widget.ids.nav_drawer.add_widget(
             MDCustomIconItem(

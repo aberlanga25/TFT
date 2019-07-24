@@ -26,12 +26,7 @@
     text: "+"
     halign: "center"
     color: 1, 1, 1, 1
-<Exit@MDFlatButton>
-    text: 'Ok'
-    theme_text_color: 'Custom'
-    text_color: [1, 1, 1, 1]
-<NeedRod@PreviousDialogCoffee>
-    auto_dismiss: False
+<NeedRod>
     size_hint: None, None
     size: dp(200), dp(100)
     BoxLayout:
@@ -39,12 +34,13 @@
         orientation: 'vertical'
         LabelPop:
             text: "Needlessly Large Rod"
+            font_style: 'H6'
         LabelPop:
             text: "+20% Spell Power"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Bow@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
     size: dp(200), dp(100)
     BoxLayout:
@@ -52,12 +48,13 @@
         orientation: 'vertical'
         LabelPop:
             text: "Recurve Bow"
+            font_style: 'H6'
         LabelPop:
             text: "+20% Attack Speed"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Vest@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
     size: dp(200), dp(100)
     BoxLayout:
@@ -65,12 +62,13 @@
         orientation: 'vertical'
         LabelPop:
             text: "Chain Vest"
+            font_style: 'H6'
         LabelPop:
             text: "+20 Armor"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Tear@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
     size: dp(200), dp(100)
     BoxLayout:
@@ -78,12 +76,13 @@
         orientation: 'vertical'
         LabelPop:
             text: "Tear of the Goddess"
+            font_style: 'H6'
         LabelPop:
             text: "+20 Mana"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Cloak@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
     size: dp(200), dp(100)
     BoxLayout:
@@ -91,12 +90,13 @@
         orientation: 'vertical'
         LabelPop:
             text: "Negatron Cloak"
+            font_style: 'H6'
         LabelPop:
             text: "+20 Magic Resist"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Sword@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
     size: dp(200), dp(100)
     BoxLayout:
@@ -104,12 +104,13 @@
         orientation: 'vertical'
         LabelPop:
             text: "B. F. Sword"
+            font_style: 'H6'
         LabelPop:
             text: "+20 Attack Damage"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Belt@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
     size: dp(200), dp(100)
     BoxLayout:
@@ -117,12 +118,13 @@
         orientation: 'vertical'
         LabelPop:
             text: "Giant's Belt"
+            font_style: 'H6'
         LabelPop:
             text: "+200 Health"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Spat@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
     size: dp(200), dp(100)
     BoxLayout:
@@ -133,12 +135,12 @@
             font_style: 'H6'
         LabelPop:
             text: "It must do something..."
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Edge@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -152,17 +154,20 @@
             color: 1, 1, 1, 1
         GridLayout:
             cols:3
+            size_hint_y:None
             Image:
                 source:"images/items/1.png"
+                size_hint: 2, 2
             Plus:
             Image:
                 source:"images/items/1.png"
-        Exit:
-            on_release: root.dismiss()
+                size_hint: None, None
+        
+            
 <Divine@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -181,12 +186,12 @@
             Plus:
             Image:
                 source:"images/items/2.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <GunBld@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -205,12 +210,12 @@
             Plus:
             Image:
                 source:"images/items/3.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Spear@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(215)
+    size: dp(200), dp(315)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -229,12 +234,12 @@
             Plus:
             Image:
                 source:"images/items/4.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Angel@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -253,12 +258,12 @@
             Plus:
             Image:
                 source:"images/items/5.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Blood@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -277,12 +282,12 @@
             Plus:
             Image:
                 source:"images/items/6.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Zeke@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(250)
+    size: dp(200), dp(350)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -301,12 +306,12 @@
             Plus:
             Image:
                 source:"images/items/7.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Yom@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -325,12 +330,12 @@
             Plus:
             Image:
                 source:"images/items/8.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Cannon@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -349,12 +354,12 @@
             Plus:
             Image:
                 source:"images/items/2.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Guin@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -373,12 +378,12 @@
             Plus:
             Image:
                 source:"images/items/3.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Statikk@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -397,12 +402,12 @@
             Plus:
             Image:
                 source:"images/items/4.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Phant@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -421,12 +426,12 @@
             Plus:
             Image:
                 source:"images/items/5.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Cursed@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(215)
+    size: dp(200), dp(315)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -445,12 +450,12 @@
             Plus:
             Image:
                 source:"images/items/6.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Hydra@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -469,12 +474,12 @@
             Plus:
             Image:
                 source:"images/items/7.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Ruined@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -493,12 +498,12 @@
             Plus:
             Image:
                 source:"images/items/8.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Rab@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -517,12 +522,12 @@
             Plus:
             Image:
                 source:"images/items/3.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Echo@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -541,12 +546,12 @@
             Plus:
             Image:
                 source:"images/items/4.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Solari@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(250)
+    size: dp(200), dp(350)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -565,12 +570,12 @@
             Plus:
             Image:
                 source:"images/items/5.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Spark@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -589,12 +594,12 @@
             Plus:
             Image:
                 source:"images/items/6.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Morello@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(230)
+    size: dp(200), dp(330)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -613,12 +618,12 @@
             Plus:
             Image:
                 source:"images/items/7.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Yuumi@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -637,12 +642,12 @@
             Plus:
             Image:
                 source:"images/items/8.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Seraph@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -661,12 +666,12 @@
             Plus:
             Image:
                 source:"images/items/4.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Heart@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -685,12 +690,12 @@
             Plus:
             Image:
                 source:"images/items/5.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Hush@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(220)
+    size: dp(200), dp(320)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -709,12 +714,12 @@
             Plus:
             Image:
                 source:"images/items/6.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Redemption@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -733,12 +738,12 @@
             Plus:
             Image:
                 source:"images/items/7.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Darkin@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -757,12 +762,12 @@
             Plus:
             Image:
                 source:"images/items/8.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Thornmail@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -781,12 +786,12 @@
             Plus:
             Image:
                 source:"images/items/5.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Breaker@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -805,12 +810,12 @@
             Plus:
             Image:
                 source:"images/items/6.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Red@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(215)
+    size: dp(200), dp(315)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -829,12 +834,12 @@
             Plus:
             Image:
                 source:"images/items/7.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Knight@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -853,12 +858,12 @@
             Plus:
             Image:
                 source:"images/items/8.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Claw@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -877,12 +882,12 @@
             Plus:
             Image:
                 source:"images/items/6.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Zephyr@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -901,12 +906,12 @@
             Plus:
             Image:
                 source:"images/items/7.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Hurricane@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(205)
+    size: dp(200), dp(305)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -925,12 +930,12 @@
             Plus:
             Image:
                 source:"images/items/8.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Warmog@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -949,12 +954,12 @@
             Plus:
             Image:
                 source:"images/items/7.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Frozen@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -973,12 +978,12 @@
             Plus:
             Image:
                 source:"images/items/8.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 <Nature@PreviousDialogCoffee>
-    auto_dismiss: False
+    
     size_hint: None, None
-    size: dp(200), dp(200)
+    size: dp(200), dp(300)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -997,8 +1002,8 @@
             Plus:
             Image:
                 source:"images/items/8.png"
-        Exit:
-            on_release: root.dismiss()
+        
+            
 
 
 <TierLabel@MDLabel>
@@ -1013,8 +1018,8 @@
     row_force_default: True
     size_hint_y: None
     height: self.minimum_height
-    padding: dp(20), dp(20)
-    spacing: dp(20)
+    padding: dp(10), dp(10)
+    spacing: dp(10)
 
 NavigationLayout:
     id: nav_layout
@@ -1049,13 +1054,13 @@ NavigationLayout:
                         height: self.minimum_height
                         size_hint_y: None
                         #size_hint_x: None
-                        padding: dp(20), dp(20)
-                        spacing: dp(10)
+                        padding: dp(4), dp(4)
+                        spacing: dp(4)
                         TierLabel:
                             text: 'Tier 1'
                         MDSeparator:
                         GridTier:
-                            cols: 5
+                            cols: 4
                             id: tier1
                             row_default_height:
                                 (self.width - self.cols*self.spacing[0])/self.cols
@@ -1063,7 +1068,7 @@ NavigationLayout:
                             text: 'Tier 2'
                         MDSeparator:
                         GridTier:
-                            cols: 5
+                            cols: 4
                             id: tier2
                             row_default_height:
                                 (self.width - self.cols*self.spacing[0])/self.cols
@@ -1071,7 +1076,7 @@ NavigationLayout:
                             text: 'Tier 3'
                         MDSeparator:
                         GridTier:
-                            cols: 5
+                            cols: 4
                             id: tier3
                             row_default_height:
                                 (self.width - self.cols*self.spacing[0])/self.cols
@@ -1079,7 +1084,7 @@ NavigationLayout:
                             text: 'Tier 4'
                         MDSeparator:
                         GridTier:
-                            cols: 5
+                            cols: 4
                             id: tier4
                             row_default_height:
                                 (self.width - self.cols*self.spacing[0])/self.cols
@@ -1087,7 +1092,7 @@ NavigationLayout:
                             text: 'Tier 5'
                         MDSeparator:
                         GridTier:
-                            cols: 5
+                            cols: 4
                             id: tier5
                             row_default_height:
                                 (self.width - self.cols*self.spacing[0])/self.cols
@@ -1105,9 +1110,8 @@ NavigationLayout:
                         #width: dp(700)
                         height: self.minimum_height
                         size_hint_y: None
-                        #size_hint_x: None
                         padding: dp(20), dp(20)
-                        spacing: dp(10)
+                        spacing: dp(0), dp(20)
                         MDLabel:
                             text: "Name"
                             size_hint_y: None
@@ -1116,7 +1120,7 @@ NavigationLayout:
                             theme_text_color: 'Primary'
                             markup: True
                             halign: 'center'
-                            size_hint_x: 0.4
+                            size_hint_x: 0.6
                             text_size: self.width - 20, None
                         MDLabel:
                             text: "Cost"
@@ -1126,7 +1130,7 @@ NavigationLayout:
                             theme_text_color: 'Primary'
                             markup: True
                             halign: 'center'
-                            size_hint_x: 0.2
+                            size_hint_x: 0.1
                             text_size: self.width - 20, None
                         MDLabel:
                             text: "Origins"
@@ -1136,6 +1140,7 @@ NavigationLayout:
                             theme_text_color: 'Primary'
                             markup: True
                             size_hint_x: 0.3
+                            halign: 'center'
                             text_size: self.width - 20, None
                         MDLabel:
                             text: "Classes"
@@ -1145,7 +1150,7 @@ NavigationLayout:
                             theme_text_color: 'Primary'
                             markup: True
                             halign: 'center'
-                            size_hint_x: 0.3
+                            size_hint_x: 0.4
                             text_size: self.width - 20, None
 
             Screen:
@@ -1252,6 +1257,7 @@ NavigationLayout:
                         height: self.minimum_height
                         size_hint_y: None
                         spacing: dp(20)
+                        padding: dp(10)
                         TierLabel:
                             text: 'Base'
                         MDSeparator:

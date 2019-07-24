@@ -16,7 +16,7 @@ def listNames():
     names = ['Aatrox', 'Ahri', 'Akali', 'Anivia', 'Ashe', 'Aurelion Sol', 'Blitzcrank', 'Brand', 'Braum', "Cho'Gath",
              'Darius', 'Draven', 'Elise', 'Evelynn', 'Fiora', 'Gangplank', 'Garen', 'Gnar', 'Graves', 'Karthus',
              'Kassadin', 'Katarina', 'Kayle', 'Kennen', "Kha'Zix", 'Kindred', 'Leona', 'Lissandra', 'Lucian', 'Lulu',
-             'Miss Fortune', 'Mordekaiser', 'Morgana', 'Nidalee', 'Poppy', 'Pyke', "Rek'Sai", 'Renga', 'Sejuani', 'Shen',
+             'Miss Fortune', 'Mordekaiser', 'Morgana', 'Nidalee', 'Poppy', 'Pyke', "Rek'Sai", 'Rengar', 'Sejuani', 'Shen',
              'Shyvana', 'Swain', 'Tristana', 'Twisted Fate', 'Varus', 'Vayne', 'Veigar', 'Volibear', 'Warwick', 'Yasuo',
              'Zed']
     return names
