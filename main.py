@@ -12,13 +12,10 @@ from kivymd.list import OneLineAvatarListItem, ILeftBody
 from kivymd.utils.cropimage import crop_image
 from kivymd.label import MDLabel
 from kivymd.imagelists import SmartTile, SmartTileWithLabel
-from kivymd.toolbar import MDToolbar
+from kivymd.menus import MDDropdownMenu
 
 from champs import *
 from basedialog import BaseDialogForDemo
-
-
-
 
 class MDCustomIconItem(OneLineAvatarListItem):
     icon = StringProperty('')
@@ -42,6 +39,35 @@ class MyApp(App):
     title = "TFT"
     main_widget = None
     icon = 'images/Logo.png'
+    toolbar = None
+    filterMenu = []
+    instance_filtermenu = None
+    filter_list = [
+        "All",
+        "Assassin",
+        "Blademaster",
+        "Brawler",
+        "Demon",
+        "Dragon",
+        "Elementalist",
+        "Exile",
+        "Glacial",
+        "Guardian",
+        "Gunslinger",
+        "Imperial",
+        "Knight",
+        "Noble",
+        "Ninja",
+        "Phantom",
+        "Pirate",
+        "Ranger",
+        "Robot",
+        "Shapeshifter",
+        "Sorcerer",
+        "Wild",
+        "Void",
+        "Yordle",
+    ]
 
     def build(self):
         self.main_widget = Builder.load_file('main.kv')
@@ -81,34 +107,64 @@ class MyApp(App):
         for v in t5:
             self.main_widget.ids.tier5.add_widget(self.tierChamp(v))
 
-    #def filterChamps(self, filter):
+    def openFilter(self, instance):
+        self.set_Filtermenu()
+        self.instance_filtermenu = MDDropdownMenu(items=self.filterMenu, max_height=dp(500), width_mult=4)
+        self.instance_filtermenu.open(instance)
 
+    def addButton(self):
 
+        if self.main_widget.ids.scr_mngr.current == 'champs':
+            self.main_widget.ids.toolbar.right_action_items.append(
+                ['filter', lambda x: self.openFilter(x)]
+            )
+        else:
+            self.main_widget.ids.toolbar.right_action_items = []
+    def set_Filtermenu(self):
+        if not len(self.filterMenu):
+            for name_item in self.filter_list:
+                self.filterMenu.append(
+                    {
+                        "viewclass": "OneLineIconListItem",
+                        "text": name_item,
+                        "icon": 'images/classes/1.png',
+                        "on_release": lambda x=name_item: self.filterEvent(x),
+                    }
+                )
+
+    def filterEvent(self, name_item):
+        if name_item == 'All':
+            self.set_allchamps()
+        else:
+            self.set_fitlerchamps(name_item)
+
+    def set_fitlerchamps(self, name):
+        self.main_widget.ids.champsgrid.clear_widgets()
+        clas = listClasses()
+        orig = listOrigins()
+        for x in range(1,52):
+            n = clas[x-1].split()
+            o = orig[x-1].split()
+            if(len(n)>1):
+                if n[0] == name or n[1] == name:
+                    self.main_widget.ids.champsgrid.add_widget(
+                        self.tierChamp(x))
+            elif n[0] == name:
+                self.main_widget.ids.champsgrid.add_widget(
+                    self.tierChamp(x))
+            if(len(o)>1):
+                if o[0] == name or o[1] == name:
+                    self.main_widget.ids.champsgrid.add_widget(
+                        self.tierChamp(x))
+            elif o[0] == name:
+                self.main_widget.ids.champsgrid.add_widget(
+                    self.tierChamp(x))
     def set_allchamps(self):
         self.main_widget.ids.champsgrid.clear_widgets()
-        self.main_widget.ids.champsgrid.add_widget(
-            LabelChamp(text='Name', size_hint_x=0.6))
-        self.main_widget.ids.champsgrid.add_widget(
-            Image(source='images/menu/items.png', size_hint_x=0.1))
-        self.main_widget.ids.champsgrid.add_widget(
-            LabelChamp(text='Origins', size_hint_x=0.3))
-        self.main_widget.ids.champsgrid.add_widget(
-            LabelChamp(text='Classes', size_hint_x=0.4))
-        costs = listCosts()
-        orig = listOrigins()
-        names = listNames()
-        clas = listClasses()
         for x in range(1,52):
-            champLay = GridLayout(cols=2,size_hint_x= 0.5)
-            champLay.add_widget(MySmartTile(source='images/champs/%d.png' %x,  size_hint_y=None, size_hint_x=None ))
-            champLay.add_widget(MDLabel(text=str(names[x-1]), size_hint_y=None, font_style="Body1", theme_text_color='Primary', halign='center'))
-            self.main_widget.ids.champsgrid.add_widget(champLay)
             self.main_widget.ids.champsgrid.add_widget(
-                MDLabel(text=str(costs[x-1]), size_hint_y=None, font_style="Body1", halign='center', theme_text_color='Primary', size_hint_x= 0.1))
-            self.main_widget.ids.champsgrid.add_widget(
-                MDLabel(text=str(orig[x-1]), size_hint_y=None,  font_style="Body1", halign='center', theme_text_color='Primary', size_hint_x= 0.3))
-            self.main_widget.ids.champsgrid.add_widget(
-                MDLabel(text=str(clas[x-1]), size_hint_y=None, font_style="Body1", halign='center', theme_text_color='Primary', size_hint_x= 0.4))
+                self.tierChamp(x)
+            )
 
     def on_start(self):
         self.main_widget.ids.nav_drawer.add_widget(
@@ -128,6 +184,5 @@ class MyApp(App):
                 on_release=lambda x: self.callbackMenu('tier')))
         self.set_allchamps()
         self.set_tiers()
-        #self.example_add_stack_floating_buttons()
 
 MyApp().run()

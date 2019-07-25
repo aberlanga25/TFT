@@ -6,9 +6,9 @@ def listCosts():
 
 def listOrigins():
     origins = ['Demon', 'Wild', 'Ninja', 'Glacial','Glacial', 'Dragon', 'Robot', 'Demon','Glacial', 'Void', 'Imperial', 'Imperial',
-               'Demon', 'Demon', 'Noble','Pirate','Noble', 'Wild , Yordle', 'Pirate', 'Phantom','Void','Imperial','Noble',
-               'Ninja, Yordle', 'Void', 'Phantom', 'Noble', 'Glacial', 'Noble', 'Yordle', 'Pirate', 'Phantom', 'Demon',
-               'Wild', 'Yordle', 'Pirate', 'Void', 'Wild', 'Glacial', 'Ninja', 'Dragon', 'Imperial , Demon', 'Yordle',
+               'Demon', 'Demon', 'Noble','Pirate','Noble', 'Wild Yordle', 'Pirate', 'Phantom','Void','Imperial','Noble',
+               'Ninja Yordle', 'Void', 'Phantom', 'Noble', 'Glacial', 'Noble', 'Yordle', 'Pirate', 'Phantom', 'Demon',
+               'Wild', 'Yordle', 'Pirate', 'Void', 'Wild', 'Glacial', 'Ninja', 'Dragon', 'Imperial Demon', 'Yordle',
                'Pirate', 'Demon', 'Noble', 'Yordle', 'Glacial', 'Wild', 'Exile', 'Ninja']
     return origins
 
@@ -22,8 +22,8 @@ def listNames():
     return names
 
 def listClasses():
-    classes = ['Blademaster','Sorcerer','Assassin', 'Elementalist', 'Ranger', 'Sorcerer', 'Brawler', 'Elementalist', 'Guardian',
-               'Brawler','Knight', 'Blademaster', 'Shapeshifter', 'Assassin', 'Blademaster', 'Gunslinger , Blademaster', 'Knight',
+    classes = ['Blademaster', 'Sorcerer','Assassin', 'Elementalist', 'Ranger', 'Sorcerer', 'Brawler', 'Elementalist', 'Guardian',
+               'Brawler','Knight', 'Blademaster', 'Shapeshifter', 'Assassin', 'Blademaster', 'Gunslinger Blademaster', 'Knight',
                'Shapeshifter', 'Gunslinger','Sorcerer', 'Sorcerer', 'Assassin', 'Knight', 'Elementalist', 'Assassin', 'Ranger',
                'Guardian', 'Elementalist', 'Gunslinger', 'Sorcerer', 'Gunslinger', 'Knight', 'Sorcerer', 'Shapeshifter', 'Knight',
                'Assassin', 'Brawler', 'Assassin', 'Knight', 'Blademaster', 'Shapeshifter', 'Shapeshifter', 'Gunslinger',
@@ -45,3 +45,5 @@ def tier4():
 def tier5():
     tier5 = [14,15,16,21,32,35,37,43]
     return tier5
+
+

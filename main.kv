@@ -6,6 +6,7 @@
 #:import SmartTile kivymd.imagelists.SmartTile
 #:import MDSeparator kivymd.cards.MDSeparator
 #:import Factory kivy.factory.Factory
+#:import MDDropdownMenu kivymd.menus.MDDropdownMenu
 
 
 <MDCustomIconItem>:
@@ -1039,6 +1040,7 @@ NavigationLayout:
         scr_mngr: scr_mngr
         orientation: 'vertical'
         MDToolbar:
+            id: toolbar
             title: 'TFT'
             elevation: 10
             left_action_items: [['menu', lambda x: app.root.toggle_nav_drawer()]]
@@ -1051,6 +1053,8 @@ NavigationLayout:
             Screen:
                 name: 'tier'
                 id: 'tier'
+                on_enter:
+                    app.addButton()
                 ScrollView:
                     do_scroll_x: True
                     GridLayout:
@@ -1108,17 +1112,20 @@ NavigationLayout:
             Screen:
                 name: 'champs'
                 id: champs
+                on_enter:
+                    app.addButton()
                 ScrollView:
                     do_scroll_x: True
                     GridLayout:
                         id: champsgrid
-                        rows:52
-                        cols:4
-                        #width: dp(700)
-                        height: self.minimum_height
+                        cols: 4
+                        row_default_height:
+                            (self.width - self.cols*self.spacing[0])/self.cols
+                        row_force_default: True
                         size_hint_y: None
+                        height: self.minimum_height
                         padding: dp(20), dp(20)
-                        spacing: dp(0), dp(20)
+                        spacing: dp(10)
 
 
             Screen:
@@ -1127,6 +1134,7 @@ NavigationLayout:
                 spacing: dp(20)
 
                 on_enter:
+                    app.addButton()
                     app.crop_image_for_tile(tile_1, tile_1.size, \
                     'images/items/1.png')
                     app.crop_image_for_tile(tile_2, tile_2.size, \
@@ -1370,7 +1378,7 @@ NavigationLayout:
                                 on_release: Factory.Knight().open()
                             MySmartTile:
                                 id: tile_66
-                                on_release: Factory.Dragon().open()
+                                on_release: Factory.Claw().open()
                             MySmartTile:
                                 id: tile_67
                                 on_release: Factory.Zephyr().open()
