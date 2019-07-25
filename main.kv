@@ -15,7 +15,14 @@
 <MySmartTile>
     mipmap: True
     box_color: 0,0,0,0
-
+<LabelChamp>
+    size_hint_y: None
+    height: self.texture_size[1]
+    font_style: 'Subtitle2'
+    theme_text_color: 'Primary'
+    markup: True
+    halign: 'center'
+    text_size: self.width - 20, None
 <LabelPop@MDLabel>
     size_hint_y: None
     height: self.texture_size[1]
@@ -26,7 +33,7 @@
     text: "+"
     halign: "center"
     color: 1, 1, 1, 1
-<NeedRod>
+<NeedRod@PreviousDialogCoffee>
     size_hint: None, None
     size: dp(200), dp(100)
     BoxLayout:
@@ -1100,7 +1107,7 @@ NavigationLayout:
 
             Screen:
                 name: 'champs'
-                id: 'champs'
+                id: champs
                 ScrollView:
                     do_scroll_x: True
                     GridLayout:
@@ -1112,51 +1119,13 @@ NavigationLayout:
                         size_hint_y: None
                         padding: dp(20), dp(20)
                         spacing: dp(0), dp(20)
-                        MDLabel:
-                            text: "Name"
-                            size_hint_y: None
-                            height: self.texture_size[1]
-                            font_style: 'Subtitle2'
-                            theme_text_color: 'Primary'
-                            markup: True
-                            halign: 'center'
-                            size_hint_x: 0.6
-                            text_size: self.width - 20, None
-                        MDLabel:
-                            text: "Cost"
-                            size_hint_y: None
-                            height: self.texture_size[1]
-                            font_style: 'Subtitle2'
-                            theme_text_color: 'Primary'
-                            markup: True
-                            halign: 'center'
-                            size_hint_x: 0.1
-                            text_size: self.width - 20, None
-                        MDLabel:
-                            text: "Origins"
-                            size_hint_y: None
-                            height: self.texture_size[1]
-                            font_style: 'Subtitle2'
-                            theme_text_color: 'Primary'
-                            markup: True
-                            size_hint_x: 0.3
-                            halign: 'center'
-                            text_size: self.width - 20, None
-                        MDLabel:
-                            text: "Classes"
-                            size_hint_y: None
-                            height: self.texture_size[1]
-                            font_style: 'Subtitle2'
-                            theme_text_color: 'Primary'
-                            markup: True
-                            halign: 'center'
-                            size_hint_x: 0.4
-                            text_size: self.width - 20, None
+
 
             Screen:
                 name: 'items'
                 id: 'items'
                 spacing: dp(20)
+
                 on_enter:
                     app.crop_image_for_tile(tile_1, tile_1.size, \
                     'images/items/1.png')

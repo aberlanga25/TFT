@@ -12,9 +12,13 @@ from kivymd.list import OneLineAvatarListItem, ILeftBody
 from kivymd.utils.cropimage import crop_image
 from kivymd.label import MDLabel
 from kivymd.imagelists import SmartTile, SmartTileWithLabel
+from kivymd.toolbar import MDToolbar
 
 from champs import *
 from basedialog import BaseDialogForDemo
+
+
+
 
 class MDCustomIconItem(OneLineAvatarListItem):
     icon = StringProperty('')
@@ -27,8 +31,9 @@ class MySmartTile(SmartTile):
     pass
 class PreviousDialogCoffee(BaseDialogForDemo):
     pass
-class NeedRod(PreviousDialogCoffee):
+class LabelChamp(MDLabel):
     pass
+
 
 class MyApp(App):
     theme_cls = ThemeManager()
@@ -76,15 +81,26 @@ class MyApp(App):
         for v in t5:
             self.main_widget.ids.tier5.add_widget(self.tierChamp(v))
 
+    #def filterChamps(self, filter):
 
-    def set_champs(self):
+
+    def set_allchamps(self):
+        self.main_widget.ids.champsgrid.clear_widgets()
+        self.main_widget.ids.champsgrid.add_widget(
+            LabelChamp(text='Name', size_hint_x=0.6))
+        self.main_widget.ids.champsgrid.add_widget(
+            Image(source='images/menu/items.png', size_hint_x=0.1))
+        self.main_widget.ids.champsgrid.add_widget(
+            LabelChamp(text='Origins', size_hint_x=0.3))
+        self.main_widget.ids.champsgrid.add_widget(
+            LabelChamp(text='Classes', size_hint_x=0.4))
         costs = listCosts()
         orig = listOrigins()
         names = listNames()
         clas = listClasses()
         for x in range(1,52):
             champLay = GridLayout(cols=2,size_hint_x= 0.5)
-            champLay.add_widget(MySmartTile(source='images/champs/%d.png' %x,  size_hint_y=None, size_hint_x=None, on_release=self.callbackPop() ))
+            champLay.add_widget(MySmartTile(source='images/champs/%d.png' %x,  size_hint_y=None, size_hint_x=None ))
             champLay.add_widget(MDLabel(text=str(names[x-1]), size_hint_y=None, font_style="Body1", theme_text_color='Primary', halign='center'))
             self.main_widget.ids.champsgrid.add_widget(champLay)
             self.main_widget.ids.champsgrid.add_widget(
@@ -94,12 +110,6 @@ class MyApp(App):
             self.main_widget.ids.champsgrid.add_widget(
                 MDLabel(text=str(clas[x-1]), size_hint_y=None, font_style="Body1", halign='center', theme_text_color='Primary', size_hint_x= 0.4))
 
-    def createSmart(self):
-        smart = MDLabel(text="hi", font_style="H6")
-        return smart
-
-    def callbackPop(self):
-        NeedRod().open()
     def on_start(self):
         self.main_widget.ids.nav_drawer.add_widget(
             MDCustomIconItem(
@@ -116,7 +126,8 @@ class MyApp(App):
                 text="Tier List",
                 icon='images/menu/tier.png',
                 on_release=lambda x: self.callbackMenu('tier')))
-        self.set_champs()
+        self.set_allchamps()
         self.set_tiers()
+        #self.example_add_stack_floating_buttons()
 
 MyApp().run()
