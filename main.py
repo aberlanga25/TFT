@@ -88,7 +88,7 @@ class MyApp(App):
     def tierChamp(self, x):
         names = listNames()
         return SmartTileWithLabel(source='images/champs/%d.png' % x,  text=str(names[x-1]),
-                                  font_style= 'Subtitle1', mipmap=True)
+                                  font_style= 'Body1', mipmap=True)
     def set_tiers(self):
         t1 = tier1()
         t2 = tier2()
@@ -159,6 +159,10 @@ class MyApp(App):
             elif o[0] == name:
                 self.main_widget.ids.champsgrid.add_widget(
                     self.tierChamp(x))
+        self.main_widget.ids.champsgrid.add_widget(MDLabel(text=''))
+        self.main_widget.ids.champsgrid.add_widget(MDLabel(text=''))
+        self.main_widget.ids.champsgrid.add_widget(MDLabel(text=''))
+
     def set_allchamps(self):
         self.main_widget.ids.champsgrid.clear_widgets()
         for x in range(1,52):

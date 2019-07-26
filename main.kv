@@ -34,9 +34,10 @@
     text: "+"
     halign: "center"
     color: 1, 1, 1, 1
+
 <NeedRod@PreviousDialogCoffee>
     size_hint: None, None
-    size: dp(200), dp(100)
+    size: dp(200), dp(65)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -48,9 +49,8 @@
         
             
 <Bow@PreviousDialogCoffee>
-    
     size_hint: None, None
-    size: dp(200), dp(100)
+    size: dp(200), dp(65)
     BoxLayout:
         spacing: dp(10)
         orientation: 'vertical'
@@ -59,10 +59,8 @@
             font_style: 'H6'
         LabelPop:
             text: "+20% Attack Speed"
-        
             
 <Vest@PreviousDialogCoffee>
-    
     size_hint: None, None
     size: dp(200), dp(100)
     BoxLayout:
@@ -76,7 +74,6 @@
         
             
 <Tear@PreviousDialogCoffee>
-    
     size_hint: None, None
     size: dp(200), dp(100)
     BoxLayout:
@@ -87,7 +84,6 @@
             font_style: 'H6'
         LabelPop:
             text: "+20 Mana"
-        
             
 <Cloak@PreviousDialogCoffee>
     
@@ -132,7 +128,6 @@
         
             
 <Spat@PreviousDialogCoffee>
-    
     size_hint: None, None
     size: dp(200), dp(100)
     BoxLayout:
@@ -162,15 +157,34 @@
             color: 1, 1, 1, 1
         GridLayout:
             cols:3
-            size_hint_y:None
+
+            padding: dp(4)
             Image:
+                size_hint_y:None
                 source:"images/items/1.png"
-                size_hint: 2, 2
             Plus:
             Image:
+                size_hint_y:None
                 source:"images/items/1.png"
-                size_hint: None, None
-        
+        MDLabel:
+            text: "Great on:"
+            color: 1, 1, 1, 1
+        GridLayout:
+            cols:5
+            size_hint_y:None
+            padding: dp(4)
+            Image:
+                source:"images/champs/5.png"
+            Image:
+                source:"images/champs/46.png"
+            Image:
+                source:"images/champs/38.png"
+            Image:
+                source:"images/champs/12.png"
+            Image:
+                source:"images/champs/25.png"
+            Image:
+                source:"images/champs/51.png"
             
 <Divine@PreviousDialogCoffee>
     
@@ -194,7 +208,21 @@
             Plus:
             Image:
                 source:"images/items/2.png"
-        
+        GridLayout:
+            cols:5
+            size_hint_y:None
+            Image:
+                source:"images/champs/5.png"
+            Image:
+                source:"images/champs/46.png"
+            Image:
+                source:"images/champs/38.png"
+            Image:
+                source:"images/champs/12.png"
+            Image:
+                source:"images/champs/25.png"
+            Image:
+                source:"images/champs/51.png"
             
 <GunBld@PreviousDialogCoffee>
     
