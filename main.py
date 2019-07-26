@@ -4,7 +4,7 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.properties import  StringProperty
 from kivy.uix.image import Image
-from kivy.uix.gridlayout import GridLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.metrics import dp
 
 from kivymd.theming import ThemeManager
@@ -30,7 +30,8 @@ class PreviousDialogCoffee(BaseDialogForDemo):
     pass
 class LabelChamp(MDLabel):
     pass
-
+class LabelPop(MDLabel):
+    pass
 
 class MyApp(App):
     theme_cls = ThemeManager()
@@ -73,29 +74,40 @@ class MyApp(App):
         self.main_widget = Builder.load_file('main.kv')
         return self.main_widget
 
+    def on_start(self):
+        self.main_widget.ids.nav_drawer.add_widget(
+            MDCustomIconItem(
+                text="Items",
+                icon='images/menu/items.png',
+                on_release=lambda x: self.callbackMenu('items')))
+        self.main_widget.ids.nav_drawer.add_widget(
+            MDCustomIconItem(
+                text="Champions",
+                icon='images/menu/champs.png',
+                on_release=lambda x: self.callbackMenu('champs')))
+        self.main_widget.ids.nav_drawer.add_widget(
+            MDCustomIconItem(
+                text="Tier List",
+                icon='images/menu/tier.png',
+                on_release=lambda x: self.callbackMenu('tier')))
+        self.set_allchamps()
+        self.set_tiers()
+        self.set_items()
+
     def callbackMenu(self, y):
         self.main_widget.ids.scr_mngr.transition.direction = 'right'
         self.main_widget.ids.scr_mngr.current = y
 
-    def crop_image_for_tile(self, instance, size, path_to_crop_image):
-        if not os.path.exists(
-                os.path.join(self.directory, path_to_crop_image)):
-            size = (int(size[0]), int(size[1]))
-            path_to_origin_image = path_to_crop_image.replace('_tile_crop', '')
-            crop_image(size, path_to_origin_image, path_to_crop_image)
-        instance.source = path_to_crop_image
-
-    def tierChamp(self, x):
+    def tierChamp(self, y):
         names = listNames()
-        return SmartTileWithLabel(source='images/champs/%d.png' % x,  text=str(names[x-1]),
-                                  font_style= 'Subtitle1', mipmap=True)
+        return SmartTileWithLabel(source='images/champs/%d.png' % y,  text=str(names[y-1]),
+                                  font_style= 'Caption', mipmap=True)
     def set_tiers(self):
         t1 = tier1()
         t2 = tier2()
         t3 = tier3()
         t4 = tier4()
         t5 = tier5()
-
         for x in t1:
             self.main_widget.ids.tier1.add_widget(self.tierChamp(x))
         for y in t2:
@@ -111,9 +123,7 @@ class MyApp(App):
         self.set_Filtermenu()
         self.instance_filtermenu = MDDropdownMenu(items=self.filterMenu, max_height=dp(500), width_mult=4)
         self.instance_filtermenu.open(instance)
-
     def addButton(self):
-
         if self.main_widget.ids.scr_mngr.current == 'champs':
             self.main_widget.ids.toolbar.right_action_items.append(
                 ['filter', lambda x: self.openFilter(x)]
@@ -131,7 +141,6 @@ class MyApp(App):
                         "on_release": lambda x=name_item: self.filterEvent(x),
                     }
                 )
-
     def filterEvent(self, name_item):
         if name_item == 'All':
             self.set_allchamps()
@@ -159,6 +168,10 @@ class MyApp(App):
             elif o[0] == name:
                 self.main_widget.ids.champsgrid.add_widget(
                     self.tierChamp(x))
+        self.main_widget.ids.champsgrid.add_widget(MDLabel(text=''))
+        self.main_widget.ids.champsgrid.add_widget(MDLabel(text=''))
+        self.main_widget.ids.champsgrid.add_widget(MDLabel(text=''))
+
     def set_allchamps(self):
         self.main_widget.ids.champsgrid.clear_widgets()
         for x in range(1,52):
@@ -166,23 +179,54 @@ class MyApp(App):
                 self.tierChamp(x)
             )
 
-    def on_start(self):
-        self.main_widget.ids.nav_drawer.add_widget(
-            MDCustomIconItem(
-                text="Items",
-                icon='images/menu/items.png',
-                on_release=lambda x: self.callbackMenu('items')))
-        self.main_widget.ids.nav_drawer.add_widget(
-            MDCustomIconItem(
-                text="Champions",
-                icon='images/menu/champs.png',
-                on_release=lambda x: self.callbackMenu('champs')))
-        self.main_widget.ids.nav_drawer.add_widget(
-            MDCustomIconItem(
-                text="Tier List",
-                icon='images/menu/tier.png',
-                on_release=lambda x: self.callbackMenu('tier')))
-        self.set_allchamps()
-        self.set_tiers()
+    def set_items(self):
+        for x in range(1,9):
+            self.main_widget.ids.itembase.add_widget(
+                self.itemTileB(x, 1)
+            )
+        for y in range(9,45):
+            self.main_widget.ids.itemgrid.add_widget(
+                self.itemTileB(y , 0)
+            )
+
+    def itemTileB(self, y, z):
+        name = itemsNames()
+        nm = name[y - 1]
+        if z== 1:
+            return SmartTileWithLabel(source='images/items/%d.png' % y, text=nm,
+                                      font_style='Caption', mipmap=True, on_release=lambda z=nm: self.popItemBase(y))
+        return SmartTileWithLabel(source='images/items/%d.png' % y, text=nm,
+                                  font_style='Caption', mipmap=True, on_release=lambda z=nm: self.popItemCom(y))
+
+    def popItemBase(self, y):
+        name = itemsNames()
+        desc = itemsDescription()
+        nm = name[y-1]
+        dc = desc[y-1]
+        popUp = PreviousDialogCoffee(size_hint=(None, None), size=(dp(200), dp(65)))
+        box = BoxLayout(spacing=dp(10), orientation='vertical')
+        lbl = MDLabel(text=nm, font_style='H6', theme_text_color='Primary', halign='center')
+        lb2 = MDLabel(text=dc, theme_text_color='Primary', halign='center')
+        box.add_widget(lbl)
+        box.add_widget(lb2)
+        popUp.add_widget(box)
+        popUp.open()
+
+    def popItemCom(self, y):
+        name = itemsNames()
+        desc = itemsDescription()
+        nm = name[y - 1]
+        dc = desc[y - 1]
+        popUp = PreviousDialogCoffee(size_hint=(None, None), size=(dp(200), dp(400)))
+        box = BoxLayout(spacing=dp(10), orientation='vertical')
+        lbl = MDLabel(text=nm, font_style='H6', theme_text_color='Primary', halign='center')
+        lb2 = MDLabel(text=dc, theme_text_color='Primary', halign='center')
+        made = MDLabel(text='Great on:', theme_text_color='Primary')
+        box.add_widget(lbl)
+        box.add_widget(lb2)
+        box.add_widget(made)
+        popUp.add_widget(box)
+        popUp.open()
+
 
 MyApp().run()

@@ -46,4 +46,34 @@ def tier5():
     tier5 = [14,15,16,21,32,35,37,43]
     return tier5
 
+def itemsNames():
+    names = ['B. F. Sword', 'Recurve Bow', 'Needlessly Large Rod', 'Tear of the Goddess', 'Chain Vest', 'Negatron Cloak',
+             "Giant's Belt", 'Spatula', 'Infinity Edge', 'Sword of the Divine', 'Hextech Gunblade', 'Spear of Shojin',
+             'Guardian Angel', 'Bloodthirster', "Zeke's Herald", "Youmuu's Ghostblade", 'Rapid Firecannon', "Guinsoo's Rageblade",
+             'Statikk Shiv', 'Phantom Dancer', 'Cursed Blade', 'Titanic Hydra', 'Blade of the Ruined King', "Rabadon's Deathcap",
+             "Luden's Echo", 'Locket of the Iron Solari', 'Ionic Spark', 'Morellonomicon', 'Yuumi', "Seraph's Embrace",
+             'Frozen Heart', 'Hush', 'Redemption', 'Darkin', 'Thornmail', 'Sword Breaker',  'Red Buff', "Knight's Bow",
+             "Dragon's Claw", 'Zephyr', "Runaan's Hurricane", "Warmog's Armor", 'Frozen Mallet', 'Force of Nature']
+    return names
 
+def itemsDescription():
+    description = ["+20 Attack Damage", "+20% Attack Speed", "+20% Spell Word", "+20 Mana", "+20 Armor", "+20 Magic Resist",
+                   "+200 Health", "It must do something...", "Critical Strikes deal +100% damage", "Each second, the wearer has a 5% chance to gain 100% Critical Strike",
+                   "Heal for 33% of all damage dealt", "After casting, wearer gains 15% of it's max Mana per attack",
+                   "Wearer revives with 1000 Health", "Attacks heal for 50% of damage", "At the start of combat, allies within 2 hexes in the sames row gain +15% Attack Speed for the rest of combat",
+                   "Extra AD +20, Wearer is also an Assassin", "Wearer's attacks cannot be dodged. Attack Range is doubled",
+                   "Attacks grant 4% Attack Speed. Stacks infinitely", "Every 3rd attack deals 100 splash magical damage",
+                   "Wearer dodges all Critical Strikes", "Attacks on-hit have a low chance to reduce enemy's star level by 1 for the rest of combat",
+                   "Attacks deal 10% of the wearer's max Health as splash damage", "Extra AS +20. Wearer is also a Blademaster",
+                   "Wearer's Spell Power stat is amplified by 50%", "Spells deal 200 splash damage on hit", "At the start of combat, allies within 2 hexes in the same row gain a shield that blocks 300 damage",
+                   "Whenever an enemy casts a spell, they take 200 damage", "Spells deal burn damage equal to 15% of the enemy's maximum heatl over 5s and prevent healing",
+                   "Extra AP +20. Wearer is also a Sorcerer", "Wearer regains 20 Mana after spellcast", "Adjacent enemies lose 25% Attack Speed",
+                   "Attacks on-hit have a high chance to silence, preventing the enemy from casting spells for 5s", "On corssing below 25% Health, heal all nearby allies for 1000 Health",
+                   "Extra Mana +20. Wearer is also a Demon", "Reflects 100% of damage mitigated from attacks", "Attacks have a chance to disarm for 4s",
+                   "Attacks deal 13% of the enemy's maximum Health as burn damage over 5s and prevent healing", "Extra Armor +20. Wearer is also a Knight",
+                   "Gain 83% resistance to magic damage", "On start of combat, banish an enemy for 5s", "Extra MR +20. Summon a spirit who mirrors your attacks, dealing 25% Damage",
+                   "Wearer regenerates 6% max Health per second", "Extra Health +200. Wearer is also a Glacial", "Gain +1 team size"]
+    return description
+
+def greatOn():
+    great = [[5,12,25,38,46,51], [5,12,25,38,46,51], ]
