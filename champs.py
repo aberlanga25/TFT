@@ -31,12 +31,12 @@ def listClasses():
     return classes
 
 def listBest():
-    bestItem = [[14,22],[12,18,24,25,30],[11,12,25,30],[24,25,28],[9,10,41],[12,18,32,30],[0],[24,25,28],[15,26,27,31,33,40],
-                [13,22,31,33,35,42],[20,39],[9,10,14,17],[22],[11],[0],[0],[11,20,25,28],[20,22,39],[21,32,36,37],[24],[18],
+    bestItem = [[14,22],[12,18,24,25,30],[11,12,25,30],[24,25,28],[9,10,41],[12,18,32,30],[35,39,42],[24,25,28],[15,26,27,31,33,40],
+                [13,22,31,33,35,42],[20,39],[9,10,14,17],[22],[11],[22],[22,28],[11,20,25,28],[20,22,39],[21,32,36,37],[24],[18],
                 [11,25,28],[18],[28],[9,10],[15,26,27,40],[15,26,27,31,33,40],[15,26,27,40],[18,19,21,28,32,36,37],
-                [12,15,26,27,30,40],[0],[39],[15,24,26,27,40],[14,22],[32,33,39],[12,13,30],[35,42],[9,10],[12,13,30,39],
-                [13,20,22,39],[20,22],[11],[19,21,32,36,37],[0],[0],[9,10,17,41],[18],[17,19,20,21,32,35,36,37,42],
-                [35,42],[0],[9,10]]
+                [12,15,26,27,30,40],[18,24,28],[39],[15,24,26,27,40],[14,22],[32,33,39],[12,13,30],[35,42],[9,10],[12,13,30,39],
+                [13,20,22,39],[20,22],[11],[19,21,32,36,37],[18,25,30],[12,18,24],[9,10,17,41],[18],[19,20,21,32,35,42],
+                [35,42],[35,42],[9,10]]
     return bestItem
 
 def tier1():
@@ -67,15 +67,15 @@ def itemsNames():
 
 def itemsDescription():
     description = ["+20 Attack Damage", "+20% Attack Speed", "+20% Spell Word", "+20 Mana", "+20 Armor", "+20 Magic Resist",
-                   "+200 Health", "It must do something...", "Critical Strikes deal +100% damage", "Each second, the wearer has a 5% chance to gain 100% Critical Strike",
+                   "+200 Health", "It must do something...", "Critical Strikes deal +150% damage", "Each second, the wearer has a 5% chance to gain 100% Critical Strike",
                    "Heal for 33% of all damage dealt", "After casting, wearer gains 15% of it's max Mana per attack",
                    "Wearer revives with 1000 Health", "Attacks heal for 50% of damage", "At the start of combat, allies within 2 hexes in the sames row gain +15% Attack Speed for the rest of combat",
                    "Extra AD +20, Wearer is also an Assassin", "Wearer's attacks cannot be dodged. Attack Range is doubled",
                    "Attacks grant 4% Attack Speed. Stacks infinitely", "Every 3rd attack deals 100 splash magical damage",
                    "Wearer dodges all Critical Strikes", "Attacks on-hit have a low chance to reduce enemy's star level by 1 for the rest of combat",
                    "Attacks deal 10% of the wearer's max Health as splash damage", "Extra AS +20. Wearer is also a Blademaster",
-                   "Wearer's Spell Power stat is amplified by 50%", "Spells deal 200 splash damage on hit", "At the start of combat, allies within 2 hexes in the same row gain a shield that blocks 300 damage",
-                   "Whenever an enemy casts a spell, they take 200 damage", "Spells deal burn damage equal to 15% of the enemy's maximum heatl over 5s and prevent healing",
+                   "Wearer's Spell Power stat is amplified by 50%", "Spells deal 200 splash damage on hit", "At the start of combat, allies within 2 hexes in the same row gain a shield that blocks 200 damage",
+                   "Whenever an enemy casts a spell, they take 200 damage", "Spells deal burn damage equal to 15% of the enemy's maximum health over 5s and prevent healing",
                    "Extra AP +20. Wearer is also a Sorcerer", "Wearer regains 20 Mana after spellcast", "Adjacent enemies lose 25% Attack Speed",
                    "Attacks on-hit have a high chance to silence, preventing the enemy from casting spells for 5s", "On corssing below 25% Health, heal all nearby allies for 1000 Health",
                    "Extra Mana +20. Wearer is also a Demon", "Reflects 100% of damage mitigated from attacks", "Attacks have a chance to disarm for 4s",
@@ -91,5 +91,8 @@ def madeOf():
 
 def greatOn():
     great = [[5,12,25,38,46,51], [5,12,25,38,46,51], [14,42,22,3,17],[3,2,39,30,6,36],[10,40,39,36],[34,12,1],[33,27,28,30,9,26],
-             [0],[46,48,12],[23,21,47,2,6,29],[43,48,29],[17,40,41,48,11,18],[43,19,48,29],[10,13,34,40,41,18,1]]
+             [0],[46,48,12],[23,21,47,2,6,29],[43,48,29],[17,40,41,48,11,18],[43,19,48,29],[10,13,34,40,41,18,1],[0],
+             [31,33,20,4,8,2,45,6],[44,4,8,22,3,17,2],[33,27,30,28,9,26],[33,27,30,28,9,26],[31,4,16,22,8,24,17,29],
+             [0],[44,3,2,39,30,6,36],[10,35,27,9],[43,19,29,48],[10,35,27,9],[0],[49,10,7,48,37],[43,19,29],[43,19,29],
+             [0],[7,35,32,40,39,11,18],[33,27,30,28,9,26],[5,46],[49,10,7,48,50,37],[0],[0]]
     return great

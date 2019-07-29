@@ -8,7 +8,6 @@
 #:import Factory kivy.factory.Factory
 #:import MDDropdownMenu kivymd.menus.MDDropdownMenu
 
-
 <MDCustomIconItem>:
     text: root.text
     AvatarSampleWidget:
@@ -50,6 +49,13 @@
     height: self.minimum_height
     padding: dp(10), dp(10)
     spacing: dp(10)
+<GridPop>
+    cols: 4
+    row_default_height:
+        (self.width - self.cols*self.spacing[0])/self.cols
+    row_force_default: True
+    size_hint_y: None
+    height: self.minimum_height
 
 NavigationLayout:
     id: nav_layout
@@ -69,7 +75,6 @@ NavigationLayout:
             md_bg_color: app.theme_cls.primary_color
 
         ScreenManager:
-
             transition: CardTransition()
             id: scr_mngr
             Screen:
@@ -147,7 +152,6 @@ NavigationLayout:
                         height: self.minimum_height
                         padding: dp(20), dp(20)
                         spacing: dp(10)
-
 
             Screen:
                 name: 'items'
