@@ -1,8 +1,7 @@
-import os
 
 from kivy.app import App
 from kivy.lang import Builder
-from kivy.properties import  StringProperty
+from kivy.properties import StringProperty
 from kivy.uix.image import Image
 from kivy.uix.boxlayout import BoxLayout
 from kivy.metrics import dp
@@ -13,6 +12,8 @@ from kivymd.list import OneLineAvatarListItem, ILeftBody
 from kivymd.label import MDLabel
 from kivymd.imagelists import SmartTile, SmartTileWithLabel
 from kivymd.menus import MDDropdownMenu
+
+from kivmob import KivMob, TestIds
 
 from champs import *
 from basedialog import BaseDialogForDemo
@@ -34,7 +35,8 @@ class LabelPop(MDLabel):
     pass
 class GridPop(GridLayout):
     pass
-
+class MyImage(Image):
+    pass
 
 class MyApp(App):
     theme_cls = ThemeManager()
@@ -46,35 +48,15 @@ class MyApp(App):
     toolbar = None
     filterMenu = []
     instance_filtermenu = None
-    filter_list = [
-        "All",
-        "Assassin",
-        "Blademaster",
-        "Brawler",
-        "Demon",
-        "Dragon",
-        "Elementalist",
-        "Exile",
-        "Glacial",
-        "Guardian",
-        "Gunslinger",
-        "Imperial",
-        "Knight",
-        "Noble",
-        "Ninja",
-        "Phantom",
-        "Pirate",
-        "Ranger",
-        "Robot",
-        "Shapeshifter",
-        "Sorcerer",
-        "Wild",
-        "Void",
-        "Yordle",
-    ]
+    filter_list = ["All", "Assassin", "Blademaster", "Brawler", "Demon", "Dragon", "Elementalist", "Exile", "Glacial",
+        "Guardian", "Gunslinger", "Imperial", "Knight", "Noble", "Ninja", "Phantom", "Pirate", "Ranger", "Robot",
+        "Shapeshifter", "Sorcerer", "Wild", "Void", "Yordle"]
 
     def build(self):
         self.main_widget = Builder.load_file('main.kv')
+        self.ads = KivMob("ca-app-pub-5510716642555258~5266512277")
+        self.ads.new_banner("ca-app-pub-5510716642555258/7619328978", False)
+        self.ads.request_banner()
         return self.main_widget
 
     def on_start(self):
@@ -105,23 +87,18 @@ class MyApp(App):
         names = listNames()
         nm = names[y-1]
         return SmartTileWithLabel(source='images/champs/%d.png' % y,  text=nm,
-                                  font_style= 'Caption', mipmap=True, on_release=lambda z=nm: self.popChamp(y))
+                                  font_style='Caption', mipmap=True, on_release=lambda z=nm: self.popChamp(y))
 
     def set_tiers(self):
-        t1 = tier1()
-        t2 = tier2()
-        t3 = tier3()
-        t4 = tier4()
-        t5 = tier5()
-        for x in t1:
+        for x in tier1():
             self.main_widget.ids.tier1.add_widget(self.tierChamp(x))
-        for y in t2:
+        for y in tier2():
             self.main_widget.ids.tier2.add_widget(self.tierChamp(y))
-        for z in t3:
+        for z in tier3():
             self.main_widget.ids.tier3.add_widget(self.tierChamp(z))
-        for w in t4:
+        for w in tier4():
             self.main_widget.ids.tier4.add_widget(self.tierChamp(w))
-        for v in t5:
+        for v in tier5():
             self.main_widget.ids.tier5.add_widget(self.tierChamp(v))
 
     def openFilter(self, instance):
@@ -142,9 +119,9 @@ class MyApp(App):
             for name_item in self.filter_list:
                 self.filterMenu.append(
                     {
-                        "viewclass": "OneLineIconListItem",
+                        "viewclass": "MDCustomIconItem",
                         "text": name_item,
-                        "icon": 'images/classes/1.png',
+                        "icon": 'images/classes/%s.png' % name_item,
                         "on_release": lambda x=name_item: self.filterEvent(x),
                     }
                 )
@@ -232,20 +209,10 @@ class MyApp(App):
         lb2 = MDLabel(text=dc, theme_text_color='Primary', halign='center')
         made = MDLabel(text='Made of:', theme_text_color='Primary')
         boxMade = GridPop(cols=3)
-        img1 = Image(source='images/items/%d.png' % madef[y-9][0])
+        img1 = MyImage(source='images/items/%d.png' % madef[y-9][0])
         plus  = MDLabel(text="+", theme_text_color='Primary', halign='center', size_hint_x=dp(0.1))
-        img2 = Image(source='images/items/%d.png' % madef[y-9][1])
+        img2 = MyImage(source='images/items/%d.png' % madef[y-9][1])
         grt = MDLabel(text='Great on:', theme_text_color='Primary')
-        boxgreat = GridPop(cols=3)
-        if great[y-9][0] != 0:
-            for champs in great[y-9]:
-                chmp = Image(source='images/champs/%d.png' % champs)
-                boxgreat.add_widget(chmp)
-        else:
-            grt = MDLabel(text='')
-            popUp.size = (dp(200), dp(300))
-        if y==28 or y==26 or y==22 or y==15:
-            popUp.size = (dp(200), dp(500))
         boxMade.add_widget(img1)
         boxMade.add_widget(plus)
         boxMade.add_widget(img2)
@@ -253,7 +220,18 @@ class MyApp(App):
         box.add_widget(lb2)
         box.add_widget(made)
         box.add_widget(boxMade)
-        box.add_widget(grt)
+        boxgreat = GridPop(cols=3)
+        if great[y-9][0] != 0:
+            for champs in great[y-9]:
+                chmp = MySmartTile(source='images/champs/%d.png' % champs)
+                boxgreat.add_widget(chmp)
+            box.add_widget(grt)
+        else:
+            popUp.size = (dp(200), dp(300))
+        if y==28 or y==26 or y==22 or y==15:
+            popUp.size = (dp(200), dp(500))
+        if y==41:
+            boxgreat.add_widget(MDLabel(text=''))
         box.add_widget(boxgreat)
         popUp.add_widget(box)
         popUp.open()
@@ -264,35 +242,64 @@ class MyApp(App):
         orig = listOrigins()
         clas = listClasses()
         best = listBest()
+        n = clas[y - 1].split()
+        o = orig[y - 1].split()
         popUp = PopUpMenu(size_hint=(None, None), size=(dp(200), dp(300)))
         box = BoxLayout(spacing=dp(10), orientation='vertical')
         lb1 = MDLabel(text=name[y-1], font_style='H6', theme_text_color='Primary', halign='center')
         lb2 = MDLabel(text='Cost: %d' % cost[y-1], theme_text_color='Primary')
-        boxOrig = BoxLayout(orientation='horizontal')
-        lb3 = MDLabel(text=orig[y-1], theme_text_color='Primary', halign='left')
-        imgOrig = Image(source='images/classes/%s.png' % orig[y-1])
-        boxOrig.add_widget(imgOrig)
-        boxOrig.add_widget(lb3)
-        boxClass = BoxLayout(orientation='horizontal')
-        lb4 = MDLabel(text=clas[y - 1], theme_text_color='Primary', halign='left')
-        imgClass = Image(source='images/classes/%s.png' % clas[y-1])
-        boxClass.add_widget(imgClass)
-        boxClass.add_widget(lb4)
-        lb5 = MDLabel(text='Best items: ', theme_text_color='Primary')
+        boxOrig = GridLayout(cols=2)
+        if (len(o) > 1):
+            lb3 = MDLabel(text=o[0], theme_text_color='Primary', halign='left')
+            imgOrig = MyImage(source='images/classes/%s.png' % o[0], )
+            lb4 = MDLabel(text=o[1], theme_text_color='Primary', halign='left')
+            imgOrig2 = MyImage(source='images/classes/%s.png' % o[1])
+            boxOrig.add_widget(imgOrig)
+            boxOrig.add_widget(lb3)
+            boxOrig.add_widget(imgOrig2)
+            boxOrig.add_widget(lb4)
+        else:
+            lb3 = MDLabel(text=o[0], theme_text_color='Primary', halign='left')
+            imgOrig = MyImage(source='images/classes/%s.png' % o[0])
+            boxOrig.add_widget(imgOrig)
+            boxOrig.add_widget(lb3)
+        boxClass = GridLayout(cols=2)
+        if(len(n)>1):
+            lb5 = MDLabel(text=n[0], theme_text_color='Primary', halign='left')
+            imgClass = MyImage(source='images/classes/%s.png' % n[0])
+            lb6 = MDLabel(text=n[1], theme_text_color='Primary', halign='left')
+            imgClass2 = MyImage(source='images/classes/%s.png' % n[1])
+            boxClass.add_widget(imgClass)
+            boxClass.add_widget(lb5)
+            boxClass.add_widget(imgClass2)
+            boxClass.add_widget(lb6)
+        else:
+            lb5 = MDLabel(text=n[0], theme_text_color='Primary', halign='left')
+            imgClass = MyImage(source='images/classes/%s.png' % n[0])
+            boxClass.add_widget(imgClass)
+            boxClass.add_widget(lb5)
+        lb7 = MDLabel(text='Best items: ', theme_text_color='Primary')
         boxgreat = GridPop(cols=3)
         if best[y-1][0] != 0:
+            if len(best[y-1])==1:
+                boxgreat.add_widget(MDLabel(text=''))
             for items in best[y-1]:
-                itm = Image(source='images/items/%d.png' % items)
+                itm = MySmartTile(source='images/items/%d.png' % items)
                 boxgreat.add_widget(itm)
+            if len(best[y-1])==1:
+                boxgreat.add_widget(MDLabel(text=''))
+            elif len(best[y-1])==2:
+                boxgreat.add_widget(MDLabel(text=''))
         else:
-            lb5 = MDLabel(text='')
+            lb7 = MDLabel(text='')
         box.add_widget(lb1)
         box.add_widget(lb2)
         box.add_widget(boxOrig)
         box.add_widget(boxClass)
-        box.add_widget(lb5)
+        box.add_widget(lb7)
         box.add_widget(boxgreat)
         popUp.add_widget(box)
         popUp.open()
+
 
 MyApp().run()

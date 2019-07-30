@@ -15,6 +15,8 @@
 <MySmartTile>
     mipmap: True
     box_color: 0,0,0,0
+<MyImage>
+    size: dp(100), dp(100)
 <LabelChamp>
     size_hint_y: None
     height: self.texture_size[1]
@@ -56,6 +58,7 @@
     row_force_default: True
     size_hint_y: None
     height: self.minimum_height
+    spacing: dp(10)
 
 NavigationLayout:
     id: nav_layout
@@ -82,6 +85,7 @@ NavigationLayout:
                 id: 'tier'
                 on_enter:
                     app.addButton()
+                    app.ads.show_banner()
                 ScrollView:
                     do_scroll_x: True
                     GridLayout:
@@ -140,6 +144,7 @@ NavigationLayout:
                 id: champs
                 on_enter:
                     app.addButton()
+                    app.ads.show_banner()
                 ScrollView:
                     do_scroll_x: True
                     GridLayout:
@@ -159,7 +164,7 @@ NavigationLayout:
                 spacing: dp(20)
                 on_enter:
                     app.addButton()
-
+                    app.ads.show_banner()
                 ScrollView:
                     do_scroll_x: False
                     GridLayout:
