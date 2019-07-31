@@ -37,6 +37,8 @@ class GridPop(GridLayout):
     pass
 class MyImage(Image):
     pass
+class GridItem(GridLayout):
+    pass
 
 class MyApp(App):
     theme_cls = ThemeManager()
@@ -236,6 +238,19 @@ class MyApp(App):
         popUp.add_widget(box)
         popUp.open()
 
+    def popMadeOf(self, y):
+        made = madeOf()
+        boxItem = GridLayout(rows=2, cols=1)
+        boxMade = GridLayout(cols=2, size_hint_y=0.5)
+
+        x = made[y-9]
+        for i in x:
+            boxMade.add_widget(MySmartTile(source='images/items/%d.png' % i))
+        boxItem.add_widget(MySmartTile(source='images/items/%d.png' % y, size_hint_y=1))
+        boxItem.add_widget(boxMade)
+        return boxItem
+
+
     def popChamp(self, y):
         name = listNames()
         cost = listCosts()
@@ -284,7 +299,7 @@ class MyApp(App):
             if len(best[y-1])==1:
                 boxgreat.add_widget(MDLabel(text=''))
             for items in best[y-1]:
-                itm = MySmartTile(source='images/items/%d.png' % items)
+                itm = self.popMadeOf(items)
                 boxgreat.add_widget(itm)
             if len(best[y-1])==1:
                 boxgreat.add_widget(MDLabel(text=''))
