@@ -13,8 +13,6 @@ from kivymd.label import MDLabel
 from kivymd.imagelists import SmartTile, SmartTileWithLabel
 from kivymd.menus import MDDropdownMenu
 
-from kivmob import KivMob, TestIds
-
 from champs import *
 from basedialog import BaseDialogForDemo
 
@@ -29,15 +27,9 @@ class MySmartTile(SmartTile):
     pass
 class PopUpMenu(BaseDialogForDemo):
     pass
-class LabelChamp(MDLabel):
-    pass
-class LabelPop(MDLabel):
-    pass
 class GridPop(GridLayout):
     pass
 class MyImage(Image):
-    pass
-class GridItem(GridLayout):
     pass
 
 class MyApp(App):
@@ -56,9 +48,6 @@ class MyApp(App):
 
     def build(self):
         self.main_widget = Builder.load_file('main.kv')
-        self.ads = KivMob("ca-app-pub-5510716642555258~5266512277")
-        self.ads.new_banner("ca-app-pub-5510716642555258/7619328978", False)
-        self.ads.request_banner()
         return self.main_widget
 
     def on_start(self):
@@ -210,10 +199,10 @@ class MyApp(App):
         lbl = MDLabel(text=nm, font_style='H6', theme_text_color='Primary', halign='center')
         lb2 = MDLabel(text=dc, theme_text_color='Primary', halign='center')
         made = MDLabel(text='Made of:', theme_text_color='Primary')
-        boxMade = GridPop(cols=3)
-        img1 = MyImage(source='images/items/%d.png' % madef[y-9][0])
-        plus  = MDLabel(text="+", theme_text_color='Primary', halign='center', size_hint_x=dp(0.1))
-        img2 = MyImage(source='images/items/%d.png' % madef[y-9][1])
+        boxMade = GridPop(cols=3,padding=dp(10))
+        img1 = MySmartTile(source='images/items/%d.png' % madef[y-9][0])
+        plus  = MDLabel(text="+", theme_text_color='Primary', halign='center')
+        img2 = MySmartTile(source='images/items/%d.png' % madef[y-9][1])
         grt = MDLabel(text='Great on:', theme_text_color='Primary')
         boxMade.add_widget(img1)
         boxMade.add_widget(plus)
@@ -222,7 +211,7 @@ class MyApp(App):
         box.add_widget(lb2)
         box.add_widget(made)
         box.add_widget(boxMade)
-        boxgreat = GridPop(cols=3)
+        boxgreat = GridPop(cols=3, spacing=dp(10), padding=dp(10))
         if great[y-9][0] != 0:
             for champs in great[y-9]:
                 chmp = MySmartTile(source='images/champs/%d.png' % champs)
@@ -239,16 +228,9 @@ class MyApp(App):
         popUp.open()
 
     def popMadeOf(self, y):
-        made = madeOf()
-        boxItem = GridLayout(rows=2, cols=1)
-        boxMade = GridLayout(cols=2, size_hint_y=0.5)
-
-        x = made[y-9]
-        for i in x:
-            boxMade.add_widget(MySmartTile(source='images/items/%d.png' % i))
-        boxItem.add_widget(MySmartTile(source='images/items/%d.png' % y, size_hint_y=1))
-        boxItem.add_widget(boxMade)
-        return boxItem
+        names = listNames()
+        nm = names[y-1]
+        return MySmartTile(source='images/items/%d.png' % y, mipmap=True, on_release=lambda z=nm: self.popItemCom(y))
 
 
     def popChamp(self, y):
@@ -260,7 +242,7 @@ class MyApp(App):
         n = clas[y - 1].split()
         o = orig[y - 1].split()
         popUp = PopUpMenu(size_hint=(None, None), size=(dp(200), dp(300)))
-        box = BoxLayout(spacing=dp(10), orientation='vertical')
+        box = BoxLayout(orientation='vertical')
         lb1 = MDLabel(text=name[y-1], font_style='H6', theme_text_color='Primary', halign='center')
         lb2 = MDLabel(text='Cost: %d' % cost[y-1], theme_text_color='Primary')
         boxOrig = GridLayout(cols=2)
@@ -294,16 +276,14 @@ class MyApp(App):
             boxClass.add_widget(imgClass)
             boxClass.add_widget(lb5)
         lb7 = MDLabel(text='Best items: ', theme_text_color='Primary')
-        boxgreat = GridPop(cols=3)
+        boxgreat = GridPop(cols=3, spacing=dp(10), padding=dp(10))
         if best[y-1][0] != 0:
-            if len(best[y-1])==1:
+            if len(best[y-1])<2:
                 boxgreat.add_widget(MDLabel(text=''))
             for items in best[y-1]:
                 itm = self.popMadeOf(items)
                 boxgreat.add_widget(itm)
-            if len(best[y-1])==1:
-                boxgreat.add_widget(MDLabel(text=''))
-            elif len(best[y-1])==2:
+            if len(best[y-1])<3:
                 boxgreat.add_widget(MDLabel(text=''))
         else:
             lb7 = MDLabel(text='')

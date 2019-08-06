@@ -40,19 +40,19 @@ def listBest():
     return bestItem
 
 def tier1():
-    tier1 = [5,10,13,17,18,39]
+    tier1 = [10,12,17,18,41]
     return tier1
 def tier2():
-    tier2 = [4,6,8,12,22,23,26,36,41,44,48]
+    tier2 = [2,4,5,6,8,20,21,23,25,26,36,39,42,48]
     return tier2
 def tier3():
-    tier3 = [2,3,7,9,20,24,25,27,28,29,30,31,33,34,42,45,46,47,49,50,51]
+    tier3 = [3,7,9,11,24,27,28,29,30,31,33,34,37,38,45,46,47,50,51]
     return tier3
 def tier4():
-    tier4 = [1,11,19,38,40]
+    tier4 = [1,13,14,19,35,40,43,44,49]
     return tier4
 def tier5():
-    tier5 = [14,15,16,21,32,35,37,43]
+    tier5 = [15,16,22,32]
     return tier5
 
 def itemsNames():

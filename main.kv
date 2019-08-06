@@ -15,28 +15,13 @@
 <MySmartTile>
     mipmap: True
     box_color: 0,0,0,0
+<STImage>
+    mipmap: True
+    box_color: 0,0,0,0
+    size_hint_y: 1
+    #height: self.minimum_height
 <MyImage>
-    size: dp(100), dp(100)
-<LabelChamp>
-    size_hint_y: None
-    height: self.texture_size[1]
-    font_style: 'Subtitle2'
-    theme_text_color: 'Primary'
-    markup: True
-    halign: 'center'
-    text_size: self.width - 20, None
-<LabelPop>
-    size_hint_y: None
-    height: self.texture_size[1]
-    color: 1, 1, 1, 1
-    halign: 'center'
-    valign: 'middle'
-<Plus@MDLabel>
-    text: "+"
-    halign: "center"
-    color: 1, 1, 1, 1
-    size_hint_y: 0.1
-
+    size: self.texture_size
 <TierLabel@MDLabel>
     size_hint_y: None
     height: self.texture_size[1]
@@ -58,14 +43,6 @@
     row_force_default: True
     size_hint_y: None
     height: self.minimum_height
-    spacing: dp(10)
-<GridItem>
-    cols:2
-    #row_default_height:
-      #  (self.width - self.cols*self.spacing[0])/self.cols
-    #row_force_default: True
-    size_hint_y: None
-    #height: self.minimum_height
 
 NavigationLayout:
     id: nav_layout
@@ -92,7 +69,6 @@ NavigationLayout:
                 id: 'tier'
                 on_enter:
                     app.addButton()
-                    app.ads.show_banner()
                 ScrollView:
                     do_scroll_x: True
                     GridLayout:
@@ -151,7 +127,6 @@ NavigationLayout:
                 id: champs
                 on_enter:
                     app.addButton()
-                    app.ads.show_banner()
                 ScrollView:
                     do_scroll_x: True
                     GridLayout:
@@ -171,7 +146,6 @@ NavigationLayout:
                 spacing: dp(20)
                 on_enter:
                     app.addButton()
-                    app.ads.show_banner()
                 ScrollView:
                     do_scroll_x: False
                     GridLayout:
