@@ -1,27 +1,11 @@
-#:import MDToolbar kivymd.toolbar.MDToolbar
-#:import MDNavigationDrawer kivymd.navigationdrawer.MDNavigationDrawer
-#:import NavigationLayout kivymd.navigationdrawer.NavigationLayout
-#:import NavigationDrawerToolbar kivymd.navigationdrawer.NavigationDrawerToolbar
 #:import CardTransition kivy.uix.screenmanager.CardTransition
-#:import SmartTile kivymd.imagelists.SmartTile
-#:import MDSeparator kivymd.cards.MDSeparator
-#:import Factory kivy.factory.Factory
-#:import MDDropdownMenu kivymd.menus.MDDropdownMenu
 
 <MDCustomIconItem>:
     text: root.text
     AvatarSampleWidget:
         source: root.icon
-<MySmartTile>
-    mipmap: True
-    box_color: 0,0,0,0
-<STImage>
-    mipmap: True
-    box_color: 0,0,0,0
-    size_hint_y: 1
-    #height: self.minimum_height
-<MyImage>
-    size: self.texture_size
+
+
 <TierLabel@MDLabel>
     size_hint_y: None
     height: self.texture_size[1]
@@ -30,19 +14,24 @@
     markup: True
     halign: 'left'
     text_size: self.width - 20, None
+<CImage>
+    size: self.texture_size
+
+<GridNews>
+    cols: 1
+    canvas.before:
+        Color:
+            rgba: .5, .5, .5, 1
+        Line:
+            width: 2
+            rectangle: self.x, self.y, self.width, self.height
+
 <GridTier@GridLayout>
     row_force_default: True
     size_hint_y: None
     height: self.minimum_height
     padding: dp(10), dp(10)
     spacing: dp(10)
-<GridPop>
-    cols: 4
-    row_default_height:
-        (self.width - self.cols*self.spacing[0])/self.cols
-    row_force_default: True
-    size_hint_y: None
-    height: self.minimum_height
 
 NavigationLayout:
     id: nav_layout
@@ -50,7 +39,7 @@ NavigationLayout:
         id: nav_drawer
         drawer_logo: 'images/Logo.png'
         NavigationDrawerToolbar:
-            title: 'B?'
+            title: 'B? - TFT '+app.tftv
     BoxLayout:
         scr_mngr: scr_mngr
         orientation: 'vertical'
@@ -64,6 +53,22 @@ NavigationLayout:
         ScreenManager:
             transition: CardTransition()
             id: scr_mngr
+            Screen:
+                name: 'news'
+                id: news
+                on_enter:
+                    app.addButton()
+                ScrollView:
+                    do_scroll_x: False
+                    #size_hint: 1, 1
+                    GridLayout:
+                        id: newsgrid
+                        cols: 2
+                        spacing: dp(50)
+                        padding: dp(50)
+                        size_hint_y: None
+                        height: self.minimum_height
+                        row_default_height: (self.width - self.cols*self.spacing[0])/self.cols
             Screen:
                 name: 'tier'
                 id: 'tier'
@@ -178,5 +183,3 @@ NavigationLayout:
                             size_hint_y: None
                             height: self.minimum_height
                             spacing: dp(10)
-
-
