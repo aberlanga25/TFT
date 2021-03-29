@@ -12,7 +12,7 @@ kivy-deps.sdl2==0.1.22
 Kivy-Garden==0.1.4
 kivymd==0.102.1
 Pillow==6.2.1
-Pygments==2.5.2
+Pygments==2.7.4
 requests==2.22.0
 six==1.13.0
 soupsieve==1.9.5
